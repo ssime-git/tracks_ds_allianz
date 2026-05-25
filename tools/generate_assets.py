@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import random
+import shutil
 from pathlib import Path
 
 from pptx import Presentation
@@ -15,6 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SLIDES = ROOT / "slides" / "week1_python_fundamentals_databricks.pptx"
 DATA = ROOT / "data" / "insurance.csv"
 NOTES = ROOT / "slides" / "week1_speaker_notes.md"
+LIORA_TEMPLATE = Path(
+    "/Users/seb/Downloads/work_cc/slides-mc/liora_claude_design_template/"
+    "Jour 1 - Fondations LLM (fixed).pptx"
+)
 
 NAVY = RGBColor(15, 32, 56)
 INK = RGBColor(31, 41, 55)
@@ -152,7 +157,7 @@ def slide(prs):
     return prs.slides.add_slide(prs.slide_layouts[6])
 
 
-def make_deck():
+def make_deck_custom():
     prs = Presentation()
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
@@ -282,10 +287,404 @@ def make_deck():
     NOTES.write_text("\n".join(notes), encoding="utf-8")
 
 
+def _delete_slide(prs, index):
+    slide_id_list = prs.slides._sldIdLst
+    slides = list(slide_id_list)
+    slide_id_list.remove(slides[index])
+
+
+def _text_shapes(slide):
+    return [
+        shape
+        for shape in slide.shapes
+        if getattr(shape, "has_text_frame", False) and shape.text_frame is not None
+    ]
+
+
+def _set_shape_text(shape, text):
+    tf = shape.text_frame
+    first_p = tf.paragraphs[0]
+    first_run = first_p.runs[0] if first_p.runs else first_p.add_run()
+    first_run.text = text
+    for run in first_p.runs[1:]:
+        run.text = ""
+    for p in tf.paragraphs[1:]:
+        for run in p.runs:
+            run.text = ""
+
+
+def _replace_texts(slide, replacements):
+    shapes = _text_shapes(slide)
+    for shape, text in zip(shapes, replacements):
+        _set_shape_text(shape, text)
+    for shape in shapes[len(replacements):]:
+        _set_shape_text(shape, "")
+
+
+def make_deck():
+    """Generate the Week 1 deck by reusing the actual Liora PowerPoint template."""
+    SLIDES.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(LIORA_TEMPLATE, SLIDES)
+    prs = Presentation(SLIDES)
+
+    while len(prs.slides) > 29:
+        _delete_slide(prs, len(prs.slides) - 1)
+
+    slide_texts = [
+        [
+            "Formation · Data Scientist Track",
+            "Python",
+            "Fundamentals",
+            "in Azure Databricks.",
+            "SAS vers Python, pandas, Spark et SQL",
+            "Week 01 / 06",
+            "Week 1 · Databricks",
+            "01",
+        ],
+        [
+            "Avant de commencer",
+            "Cadre de la semaine 1",
+            "01 · Posture",
+            "Analyste, pas développeur",
+            "On apprend à lire, exécuter et adapter du code analytique simple.",
+            "02 · Progression",
+            "Très guidée",
+            "Aucun exercice page blanche. On modifie du code existant.",
+            "03 · Échanges",
+            "Questions à tout moment",
+            "On relie chaque geste au vocabulaire SAS connu.",
+            "04 · Données",
+            "Dataset pédagogique",
+            "Fichier insurance.csv: âge, BMI, fumeur, région, charges.",
+        ],
+        [
+            "Cas fil rouge",
+            "Analyser les coûts médicaux avec Databricks.",
+            "À la fin de la semaine 1, vous aurez exécuté un workflow complet :",
+            "Charger → un CSV insurance dans Databricks.",
+            "Explorer → lignes, colonnes, types et statistiques.",
+            "Transformer → filtrer, sélectionner, agréger.",
+            "Comparer → pandas, Spark et SQL sur la même question.",
+            "[Input] insurance.csv",
+            "[Notebook] Python + Markdown",
+            "[DataFrame] pandas puis Spark",
+            "[SQL] Requêtes analytiques",
+            "[Output] Segment de coût élevé",
+        ],
+        [
+            "Programme",
+            "Une brique par séquence, un notebook par geste clé.",
+            "Chaque séquence démarre par une démonstration lente, puis un exercice guidé transposable.",
+            "Chaque séquence démarre par une démonstration lente, puis un exercice guidé transposable.",
+            "Programme",
+            "04",
+        ],
+        [
+            "Au programme",
+            "Sommaire de la session live",
+            "01 · Databricks → workspace, cluster, notebook — 35 min",
+            "02 · Python basics → variables, types, listes, fonctions — 45 min",
+            "03 · Lire du code → indentation, conditions, erreurs fréquentes — 25 min",
+            "04 · pandas → charger, explorer, filtrer, grouper — 55 min",
+            "05 · Spark → DataFrame, select, filter, groupBy — 30 min",
+            "06 · SQL → cellules SQL, COUNT, AVG, GROUP BY — 35 min",
+            "07 · Mini challenge → segment le plus coûteux — 25 min",
+            "08 · Synthèse → checklist Databricks et SAS mapping — 15 min",
+            "Sommaire",
+            "05",
+        ],
+        ["01", "Section 01 · 35 min", "Découvrir Databricks.", "On apprend à se repérer avant d'écrire du code.", "06 Section 01 — Databricks", "06"],
+        [
+            "01 · Databricks",
+            "À la fin de la section, vous savez…",
+            "01",
+            "Ouvrir un notebook",
+            "Retrouver un support dans /Shared/training et lire les cellules.",
+            "02",
+            "Attacher un cluster",
+            "Comprendre pourquoi le notebook a besoin d'un compute.",
+            "03",
+            "Exécuter une cellule",
+            "Lancer du Markdown, du Python ou du SQL et lire le résultat.",
+            "04",
+            "Repérer la donnée",
+            "Comprendre le chemin FileStore utilisé par pandas et Spark.",
+            "05",
+            "Faire le lien SAS",
+            "Programme SAS, DATA step, PROC SQL deviennent notebook, DataFrame, SQL.",
+        ],
+        [
+            "01 · Databricks",
+            "Les 4 règles de confort",
+            "TABLEAU :",
+            "Règle  Pourquoi  Équivalent SAS",
+            "Toujours vérifier le cluster  Sans cluster attaché, la cellule ne s'exécute pas.  Session SAS disponible",
+            "Exécuter dans l'ordre  Une variable créée plus bas n'existe pas encore.  Ordre des étapes DATA/PROC",
+            "Lire le résultat de cellule  Databricks affiche la sortie juste sous le code.  Log + output SAS",
+            "Sauver dans le dossier partagé  Les notebooks doivent être retrouvables par le groupe.  Bibliothèque partagée",
+            "01 · Databricks",
+            "08",
+        ],
+        ["02", "Section 02 · 45 min", "Python,fondamentaux.", "Des bases suffisantes pour lire et modifier des notebooks analytiques.", "09 Section 02 — Python", "09"],
+        [
+            "02 · Python",
+            "Une variable, en une phrase.",
+            "Un nom qui pointe vers une valeur réutilisable.",
+            "Pas une colonne de table. Pas une macro SAS. Un objet simple en mémoire.",
+            "→ Excellent pour stocker un seuil, une modalité, un chemin de fichier.",
+            "→ À éviter pour représenter une table complète.",
+            "On lit d'abord le nom, puis la valeur affectée après le signe égal.",
+            'age = 45\nregion = "southwest"\npremium = 1200.50',
+            "On lit d'abord le nom, puis la valeur affectée après le signe égal.",
+            "02 · Python",
+            "10",
+        ],
+        [
+            "02 · Python",
+            "4 types à reconnaître",
+            "Type 1 · int",
+            "Entier",
+            "45, 64, 0. Sert aux âges, compteurs, nombres d'enfants.",
+            "Calculs simples",
+            "Type 2 · float",
+            "Décimal",
+            "27.5, 1200.50. Sert au BMI, aux montants, aux moyennes.",
+            "Analyse",
+            "Type 3 · str",
+            "Texte",
+            "southwest, yes, female. Les guillemets indiquent une chaîne.",
+            "Modalités",
+            "Type 4 · bool",
+            "Vrai / faux",
+            "True ou False. Résultat naturel d'une condition.",
+            "Filtrage",
+        ],
+        [
+            "02 · Python",
+            "L'indentation — le piège utile",
+            "Pratique analytique",
+            "On lit la structure visuellement :",
+            "❌ Mauvaise lecture — Les espaces sont décoratifs — Toutes les lignes sont au même niveau.",
+            "✓ Bonne lecture — Les lignes décalées appartiennent au bloc — La condition contrôle seulement ce bloc.",
+            'if smoker == "yes":\n    print("Smoker segment")\n    print("Higher risk")',
+            "• Lire la condition",
+            "• Repérer les lignes indentées",
+            "• Vérifier ce qui s'exécute toujours",
+            "• Exécuter puis observer",
+            "02 · Python",
+        ],
+        [
+            "02 · Python",
+            "La fonction évite de recopier une règle.",
+            "Une fonction prend une entrée et renvoie une sortie.",
+            "Pour un analyste, c'est une petite règle métier nommée. Exemple: appliquer une taxe, calculer un coût annuel.",
+            "Réutilisable, testable, lisible — et beaucoup moins fragile qu'un copier-coller.",
+            "[Entrée] monthly_cost = 120",
+            "[Fonction] annual_cost(x)",
+            "[Sortie] 1440",
+            "EXEMPLE — def annual_cost(x): return x * 12",
+            "Réutilisable, testable, lisible — et beaucoup moins fragile qu'un copier-coller.",
+            "02 · Python",
+            "13",
+        ],
+        [
+            "02 · Python",
+            "Les deux exigences non négociables",
+            "On ne cherche pas à devenir développeur. On cherche à produire une analyse fiable.",
+            "Exigence 01",
+            "Lisibilité",
+            "Le code doit pouvoir être relu par un autre analyste: noms clairs, étapes courtes, commentaires utiles.",
+            "Exigence 02",
+            "Reproductibilité",
+            "La même donnée et le même notebook doivent donner le même résultat, sans manipulation cachée.",
+            "On ne cherche pas à devenir développeur. On cherche à produire une analyse fiable.",
+            "02 · Python",
+            "14",
+        ],
+        ["03", "Section 03 · 55 min", "pandas,pour les tables.", "On retrouve le mental model SAS dataset: lignes, colonnes, transformations.", "15 Section 03 — pandas", "15"],
+        [
+            "03 · pandas 1",
+            "DataFrame · la table centrale",
+            "Un DataFrame pandas ressemble à une table Excel ou un dataset SAS.",
+            "La question métier ne change pas. On change seulement la syntaxe.",
+            "TABLEAU :",
+            "Objet  Rôle  Réflexe SAS",
+            "df  Table en mémoire  Dataset SAS",
+            "df.head()  Voir les premières lignes  PROC PRINT(obs=5)",
+            "df.info()  Voir colonnes et types  PROC CONTENTS",
+            "df.describe()  Statistiques rapides  PROC MEANS",
+            "Dataset SAS → DataFrame pandas pour manipuler localement.",
+            "La question métier ne change pas. On change seulement la syntaxe.",
+        ],
+        [
+            "03 · pandas 2",
+            "Charger, contexte, chemin",
+            "Le chemin pandas commence par /dbfs parce que pandas lit via le système de fichiers local Databricks.",
+            "Piège",
+            "Deux chemins proches",
+            "pandas: /dbfs/FileStore/tables/insurance.csv",
+            "Spark",
+            "Sans /dbfs",
+            "Spark: /FileStore/tables/insurance.csv",
+            "TABLEAU :",
+            "Librairie  Chemin",
+            "pandas  /dbfs/FileStore/tables/insurance.csv",
+        ],
+        [
+            "03 · pandas 3, 4, 5",
+            "Trois gestes complémentaires",
+            "03 · select",
+            "Choisir les colonnes",
+            'df[["age", "charges"]] réduit la table aux variables utiles pour la question.',
+            "04 · filter",
+            "Choisir les lignes",
+            'df[df["age"] > 50] garde uniquement les lignes qui respectent la condition.',
+            "05 · sort",
+            "Classer",
+            'df.sort_values("charges", ascending=False) montre les coûts les plus élevés.',
+            "03 · pandas",
+        ],
+        [
+            "03 · pandas",
+            "GroupBy · l'équivalent mental de PROC MEANS",
+            "❌ Lecture compliquée — groupby est une magie Python.",
+            "✓ Bonne lecture — on découpe la table par région, puis on calcule la moyenne des charges.",
+            'df.groupby("region")["charges"].mean()',
+            "03 · pandas",
+            "19",
+        ],
+        [
+            "03 · pandas",
+            "Les 4 dimensions de l'exploration",
+            "Une analyse fiable commence par regarder la donnée avant de conclure.",
+            "01 · Forme",
+            "Lignes, colonnes",
+            "Combien d'observations? Quelles variables? Le fichier est-il celui attendu?",
+            "02 · Types",
+            "Numérique ou texte",
+            "age doit être numérique, smoker doit être une modalité.",
+            "03 · Valeurs",
+            "Min, max, moyenne",
+            "Repérer les ordres de grandeur aberrants.",
+        ],
+        ["04", "Section 04 · 30 min", "Spark,sans théorie.", "Même logique de table, prévu pour des volumes plus grands dans Databricks.", "21 Section 04 — Spark", "21"],
+        [
+            "04 · Spark",
+            "Spark n'est pas une donnée comme une autre.",
+            "Un Spark DataFrame reste une table, mais l'exécution est gérée par le cluster.",
+            "→ On garde select, filter, groupBy.",
+            "→ On évite les détails de distribution cette semaine.",
+            "RÉFÉRENCE — Databricks notebook — Spark est disponible directement via la variable spark.",
+            "PRATIQUE — display(spark_df) affiche une table interactive dans le notebook.",
+            "Notebook Cluster DataFrame select filter groupBy display",
+            "04 · Spark",
+            "22",
+        ],
+        [
+            "04 · Spark",
+            "Pendant la semaine 1 : simplicité.",
+            "Le dataset de formation reste petit :",
+            "Colonnes → age, sex, bmi, children, smoker, region, charges.",
+            "Objectif → comparer pandas, Spark et SQL sur les mêmes questions.",
+            "Spark read → spark.read.csv(..., header=True, inferSchema=True).",
+            "display → visualisation Databricks.",
+            "groupBy → moyenne de charges par segment.",
+            '# Extrait\nspark_df = spark.read.csv("/FileStore/tables/insurance.csv", header=True, inferSchema=True)',
+            "04 · Spark",
+            "23",
+        ],
+        [
+            "04 · Spark",
+            "Traduire un geste pandas en Spark",
+            "Avant de passer à SQL, on répète les mêmes intentions :",
+            "Sources : notebook 04_spark_basics.py, exercices guidés.",
+            "01 · Sélection",
+            "Choisir des colonnes",
+            'spark_df.select("age", "charges")',
+            "02 · Filtre",
+            "Garder des lignes",
+            "spark_df.filter(spark_df.age > 50)",
+            "03 · Agrégation",
+            "Calculer une moyenne par groupe",
+        ],
+        [
+            "04 · Spark",
+            "Ce qui change vraiment",
+            "01 · pandas",
+            "Exploration locale",
+            "Très lisible pour apprendre, manipuler un CSV et raisonner vite.",
+            "02 · Spark",
+            "Exécution cluster",
+            "Même logique table, mais pensée pour Databricks et des volumes plus grands.",
+            "03 · SQL",
+            "Langage familier",
+            "Requêtes déclaratives, souvent proches de PROC SQL.",
+            "04 · Spark",
+        ],
+        ["05", "Section 05 · 35 min", "SQL,dans Databricks.", "On réutilise un langage familier pour poser des questions analytiques.", "27 Section 05 — SQL", "27"],
+        [
+            "05 · SQL",
+            "5 blocs utiles pour une requête analytique",
+            "Une requête claire permet de vérifier vite une intuition métier.",
+            "Bloc 01 · SELECT",
+            "Quelles colonnes ?",
+            "region, smoker, AVG(charges)",
+            "Bloc 02 · FROM",
+            "Quelle table ?",
+            "insurance, créée comme vue temporaire Spark.",
+            "Bloc 03 · WHERE",
+            "Quelles lignes ?",
+            "smoker = 'yes' ou age > 50.",
+        ],
+        [
+            "05 · SQL",
+            "COUNT · AVG · GROUP BY",
+            "01 · COUNT",
+            "Combien de lignes ?",
+            "SELECT COUNT(*) FROM insurance",
+            "→ Vérifie le volume chargé.",
+            "02 · AVG",
+            "Quelle moyenne ?",
+            "SELECT AVG(charges) FROM insurance",
+            "→ Donne un ordre de grandeur.",
+            "03 · GROUP BY",
+            "Par segment",
+        ],
+        [
+            "05 · SQL",
+            "Mini challenge final",
+            "Question métier : quel segment génère les coûts médicaux les plus élevés ?",
+            "01 · Segmenter",
+            "Choisir les axes",
+            "smoker, age_segment, sex ou region.",
+            "02 · Agréger",
+            "Calculer AVG(charges)",
+            "Comparer les moyennes par segment, pas seulement les lignes extrêmes.",
+            "03 · Interpréter",
+            "Phrase métier",
+            "Le segment le plus coûteux est ... parce que ...",
+            "05 · SQL",
+            "29",
+        ],
+    ]
+
+    for idx, texts in enumerate(slide_texts):
+        _replace_texts(prs.slides[idx], texts)
+
+    prs.save(SLIDES)
+    NOTES.write_text(
+        "# Notes formateur - Week 1\n\n"
+        "Deck généré depuis le template Liora réel: "
+        f"{LIORA_TEMPLATE}\n\n"
+        "Fil conducteur: lire lentement le code, exécuter cellule par cellule, "
+        "et relier chaque concept à l'équivalent SAS.\n",
+        encoding="utf-8",
+    )
+
+
 if __name__ == "__main__":
     make_dataset()
     make_deck()
     print(f"Created {DATA}")
     print(f"Created {SLIDES}")
     print(f"Created {NOTES}")
-
