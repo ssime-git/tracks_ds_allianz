@@ -1,5 +1,7 @@
-# Notes formateur - Week 1
-
-Deck généré depuis le template Liora réel: /Users/seb/Downloads/work_cc/slides-mc/liora_claude_design_template/Jour 1 - Fondations LLM (fixed).pptx
-
-Fil conducteur: lire lentement le code, exécuter cellule par cellule, et relier chaque concept à l'équivalent SAS.
+- Slide 01: Cover. Installer le cadre: analystes SAS, pas formation développeur.
+- Slide 02: Section 1: Databricks..
+- Slide 03: Section 2: Python basics..
+- Slide 04: Section 3: pandas..
+- Slide 05: Section 4: Spark..
+- Slide 06: Section 5: SQL..
+- Slide 07: Section 6: Challenge..

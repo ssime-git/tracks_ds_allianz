@@ -11,7 +11,7 @@ Public cible:
 
 ## Livrables
 
-- `slides/week1_python_fundamentals_databricks.pptx`: deck visuel pour la session live de 3h30.
+- `slides/week1_python_fundamentals_databricks.pptx`: deck visuel Liora pour une session live de 4h.
 - `notebooks/01_intro_databricks.py`: découverte de Databricks et des notebooks.
 - `notebooks/02_python_basics.py`: bases Python guidées.
 - `notebooks/03_pandas_basics.py`: manipulation tabulaire avec pandas.
@@ -20,7 +20,8 @@ Public cible:
 - `notebooks/06_guided_exercises.py`: exercices autonomes guidés.
 - `data/insurance.csv`: dataset synthétique compatible avec le schéma Kaggle Medical Cost.
 - `docs/databricks_setup.md`: instructions d’import dans le workspace.
-- `tools/generate_assets.py`: régénère le deck et le dataset.
+- `tools/generate_assets.py`: régénère le dataset.
+- `tools/generate_liora_week1_deck.py`: régénère le deck Week 1 avec la charte visuelle Liora.
 
 ## Dataset
 
@@ -48,4 +49,3 @@ Le fichier peut être remplacé par le CSV Kaggle officiel avant l’import Data
 5. Exécuter les notebooks dans l’ordre.
 
 Voir `docs/databricks_setup.md` pour le détail.
-

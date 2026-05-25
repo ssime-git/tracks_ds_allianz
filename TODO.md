@@ -5,7 +5,7 @@
 - [x] Read the Data Scientist Track PDF and scoped Week 1.
 - [x] Created repository structure for slides, notebooks, exercises, data, docs, and tools.
 - [x] Created Databricks-ready notebooks for live session and self-paced work.
-- [x] Created a visual PowerPoint deck for Week 1.
+- [x] Created a visual 4h PowerPoint deck for Week 1 using the Liora visual grammar.
 - [x] Added a synthetic training CSV with the same schema as the Kaggle Medical Cost dataset.
 - [x] Added setup and import instructions for Databricks.
 - [x] Initialized the local Git repository.
@@ -31,4 +31,3 @@
 ├── 05_SQL_Basics
 └── insurance.csv
 ```
-

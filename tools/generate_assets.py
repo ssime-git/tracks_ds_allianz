@@ -684,7 +684,9 @@ def make_deck():
 
 if __name__ == "__main__":
     make_dataset()
-    make_deck()
+    from generate_liora_week1_deck import build_deck
+
+    build_deck()
     print(f"Created {DATA}")
     print(f"Created {SLIDES}")
     print(f"Created {NOTES}")
