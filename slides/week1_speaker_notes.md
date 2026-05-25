@@ -1,7 +1,91 @@
+# Notes formateur - Week 1
+
+Ce deck est conçu pour 4h uniquement si les slides d'activité sont jouées en entier.
+Ordre recommandé: 20 min cadrage, 40 min Databricks, 45 min Python, 10 min pause,
+60 min pandas, 30 min Spark, 25 min SQL, 10 min challenge/synthèse.
+
 - Slide 01: Cover. Installer le cadre: analystes SAS, pas formation développeur.
-- Slide 02: Section 1: Databricks..
-- Slide 03: Section 2: Python basics..
-- Slide 04: Section 3: pandas..
-- Slide 05: Section 4: Spark..
-- Slide 06: Section 5: SQL..
-- Slide 07: Section 6: Challenge..
+- Slide 02: Sommaire: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 03: Timing: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 04: 00 · public: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 05: 00 · objectif: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 06: 00 · mapping: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 07: 00 · tour de table: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 08: 00 · dataset: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 09: 00 · question: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 10: Section 01: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 11: Section 1: Databricks..
+- Slide 12: 01 · workspace: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 13: 01 · repères: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 14: 01 · démo: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 15: 01 · démo guidée: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 16: 01 · chemins: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 17: 01 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 18: 01 · erreurs: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 19: Section 02: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 20: Section 2: Python basics..
+- Slide 21: 02 · repère: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 22: 02 · variable: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 23: 02 · types: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 24: 02 · liste: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 25: 02 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 26: 02 · condition: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 27: 02 · condition: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 28: 02 · binôme: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 29: 02 · fonction: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 30: 02 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 31: 02 · correction: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 32: 02 · rassurer: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 33: Section 03: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 34: Section 3: pandas..
+- Slide 35: 03 · dataframe: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 36: 03 · anatomy: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 37: 03 · load: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 38: 03 · démo: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 39: 03 · workflow: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 40: 03 · inspect: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 41: 03 · inspect: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 42: 03 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 43: 03 · select: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 44: 03 · select: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 45: 03 · filter: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 46: 03 · where: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 47: 03 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 48: 03 · groupby: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 49: 03 · means: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 50: 03 · result: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 51: 03 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 52: 03 · mapping: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 53: 03 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 54: 03 · pièges: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 55: 03 · pause: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 56: Section 04: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 57: Section 4: Spark..
+- Slide 58: 04 · mental model: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 59: 04 · message: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 60: 04 · read: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 61: 04 · transform: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 62: 04 · translate: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 63: 04 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 64: 04 · groupby: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 65: 04 · correction: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 66: 04 · compare: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 67: Section 05: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 68: Section 5: SQL..
+- Slide 69: 05 · view: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 70: 05 · sql flow: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 71: 05 · count: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 72: 05 · avg: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 73: 05 · proc sql: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 74: 05 · exercices: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 75: 05 · exercice: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 76: 05 · result: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 77: Section 06: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 78: Section 6: Challenge..
+- Slide 79: 06 · méthode: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 80: 06 · challenge: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 81: 06 · grille: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 82: 06 · restitution: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 83: 06 · synthèse: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 84: 06 · checklist: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.
+- Slide 85: 06 · fin: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.

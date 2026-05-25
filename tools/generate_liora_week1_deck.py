@@ -71,6 +71,7 @@ class Deck:
     def foot(self, s, label):
         self.text(s, 0.55, 7.05, 3.0, 0.16, label.upper(), 6, INK_SOFT, True)
         self.text(s, 12.25, 7.05, 0.5, 0.16, f"{self.n:02d}", 6, INK_SOFT, True, PP_ALIGN.RIGHT)
+        self.notes.append(f"{label}: prévoir 2-4 min, ou 8-12 min si la slide lance une démo/exercice.")
 
     def maze(self, s, where="tr", opacity=False):
         if not MAZE.exists():
@@ -155,6 +156,57 @@ class Deck:
             self.text(s, x + 0.18, y + 0.82, w - 0.36, 0.38, body, 8.5, INK_SOFT)
         self.foot(s, crumb)
 
+    def activity(self, crumb, title, duration, goal, steps, output):
+        s = self.slide(CREAM)
+        self.title(s, crumb, title, f"Activité guidée · {duration}")
+        badge = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(0.85), Inches(2.25), Inches(1.15), Inches(1.15))
+        badge.fill.solid(); badge.fill.fore_color.rgb = PINK; badge.line.fill.background()
+        self.text(s, 1.1, 2.58, 0.65, 0.18, duration, 13, NAVY, True, PP_ALIGN.CENTER)
+        self.text(s, 2.45, 2.18, 8.6, 0.55, goal, 24, NAVY, True)
+        y = 3.35
+        for i, step in enumerate(steps, 1):
+            self.text(s, 2.48, y, 0.35, 0.18, f"{i:02d}", 8, CORAL, True)
+            self.text(s, 2.95, y, 7.8, 0.22, step, 13, NAVY if i == 1 else INK_SOFT, i == 1)
+            y += 0.48
+        bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(2.45), Inches(5.8), Inches(8.8), Inches(0.55))
+        bar.fill.solid(); bar.fill.fore_color.rgb = GREEN; bar.line.fill.background()
+        self.text(s, 2.72, 5.99, 8.1, 0.14, f"Sortie attendue · {output}", 8, NAVY, True)
+        self.foot(s, crumb)
+
+    def sas_python(self, crumb, title, sas, python, takeaway):
+        s = self.slide(CREAM)
+        self.title(s, crumb, title)
+        left = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.75), Inches(2.1), Inches(5.45), Inches(3.65))
+        left.fill.solid(); left.fill.fore_color.rgb = CREAM_SOFT; left.line.fill.background()
+        self.text(s, 1.05, 2.4, 4.8, 0.15, "SAS", 8, CORAL, True)
+        self.text(s, 1.05, 2.78, 4.8, 2.25, sas, 13, NAVY, False, font="Menlo")
+        right = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.55), Inches(2.1), Inches(5.75), Inches(3.65))
+        right.fill.solid(); right.fill.fore_color.rgb = BLACK; right.line.fill.background()
+        self.text(s, 6.85, 2.4, 4.9, 0.15, "PYTHON / DATABRICKS", 8, CORAL, True)
+        self.text(s, 6.85, 2.78, 5.0, 2.25, python, 13, WHITE, False, font="Menlo")
+        self.text(s, 0.85, 6.18, 10.8, 0.28, takeaway, 13, NAVY, True)
+        self.foot(s, crumb)
+
+    def result_mock(self, crumb, title, rows, interpretation):
+        s = self.slide(CREAM)
+        self.title(s, crumb, title)
+        x0, y0 = 1.05, 2.35
+        headers = ["segment", "avg_charges", "lecture métier"]
+        widths = [2.6, 2.1, 5.4]
+        for i, h in enumerate(headers):
+            self.text(s, x0 + sum(widths[:i]), y0, widths[i] - 0.1, 0.15, h.upper(), 7, CORAL, True)
+        y = y0 + 0.45
+        for r, row in enumerate(rows):
+            fill = GREEN if r == 0 else CREAM
+            if r == 0:
+                rect = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x0 - 0.12), Inches(y - 0.08), Inches(sum(widths) + 0.2), Inches(0.46))
+                rect.fill.solid(); rect.fill.fore_color.rgb = fill; rect.line.fill.background()
+            for i, cell in enumerate(row):
+                self.text(s, x0 + sum(widths[:i]), y, widths[i] - 0.15, 0.2, cell, 9, NAVY if i == 0 else INK_SOFT, i == 0)
+            y += 0.52
+        self.text(s, 1.05, 5.85, 9.8, 0.35, interpretation, 16, NAVY, True)
+        self.foot(s, crumb)
+
     def flow(self, crumb, title, steps, caption=None):
         s = self.slide(CREAM)
         self.title(s, crumb, title, caption)
@@ -219,13 +271,13 @@ class Deck:
         s = self.slide(CREAM)
         self.title(s, "00 · timing", "Déroulé 4h.", "Objectif: alterner explication, démo et pratique.")
         blocks = [
-            ("0:00", "Databricks", CORAL),
-            ("0:35", "Python", PURPLE),
-            ("1:25", "Pause", YELLOW),
-            ("1:35", "pandas", CORAL),
-            ("2:35", "Spark", PURPLE),
-            ("3:05", "SQL", CORAL),
-            ("3:40", "Challenge", GREEN),
+            ("0:00", "Cadrage", CORAL),
+            ("0:20", "Databricks", PURPLE),
+            ("1:00", "Python", CORAL),
+            ("1:45", "Pause", YELLOW),
+            ("1:55", "pandas", PURPLE),
+            ("2:55", "Spark", CORAL),
+            ("3:25", "SQL + challenge", GREEN),
         ]
         x = 0.75
         for time, label, color in blocks:
@@ -239,20 +291,28 @@ class Deck:
     def save(self):
         OUT.parent.mkdir(parents=True, exist_ok=True)
         self.prs.save(OUT)
-        NOTES.write_text("\n".join(f"- Slide {i+1:02d}: {n}" for i, n in enumerate(self.notes)), encoding="utf-8")
+        header = """# Notes formateur - Week 1
+
+Ce deck est conçu pour 4h uniquement si les slides d'activité sont jouées en entier.
+Ordre recommandé: 20 min cadrage, 40 min Databricks, 45 min Python, 10 min pause,
+60 min pandas, 30 min Spark, 25 min SQL, 10 min challenge/synthèse.
+
+"""
+        NOTES.write_text(header + "\n".join(f"- Slide {i+1:02d}: {n}" for i, n in enumerate(self.notes)), encoding="utf-8")
 
 
 def build_deck() -> None:
     d = Deck()
     d.cover()
     d.agenda([
-        ("Databricks", "workspace, cluster, notebook, chemins", "35 min"),
-        ("Python", "variables, types, listes, fonctions, indentation", "50 min"),
+        ("Cadrage", "objectif, mapping SAS, environnement", "20 min"),
+        ("Databricks", "workspace, cluster, notebook, chemins", "40 min"),
+        ("Python", "variables, types, listes, fonctions, indentation", "45 min"),
         ("Pause", "respiration + questions", "10 min"),
         ("pandas", "charger, explorer, filtrer, agréger", "60 min"),
         ("Spark", "mêmes gestes sur Spark DataFrame", "30 min"),
-        ("SQL", "vue temporaire, COUNT, AVG, GROUP BY", "35 min"),
-        ("Challenge", "segment le plus coûteux + restitution", "20 min"),
+        ("SQL", "vue temporaire, COUNT, AVG, GROUP BY", "25 min"),
+        ("Challenge", "segment le plus coûteux + restitution", "10 min"),
     ])
     d.timeline()
     d.persona("00 · public", "Je connais SAS. Je veux retrouver mes repères sans devenir développeur Python.")
@@ -264,6 +324,25 @@ def build_deck() -> None:
         ("SAS Dataset", "DataFrame", "Lignes + colonnes"),
         ("Library", "Catalog / storage", "Emplacement des données"),
     ], True)
+    d.activity("00 · tour de table", "Tour de table orienté usage.", "6 min", "Identifier les repères SAS déjà maîtrisés par le groupe.", [
+        "Quel PROC utilisez-vous le plus souvent ?",
+        "Quelle opération revient chaque semaine : filtrer, agréger, joindre ?",
+        "Quelle partie de Databricks vous inquiète le plus ?",
+    ], "3 attentes écrites au tableau")
+    d.table("00 · dataset", "Dataset fil rouge.", ["Colonne", "Type", "Question métier"], [
+        ("age", "numérique", "âge du bénéficiaire"),
+        ("sex", "catégorie", "segment homme/femme"),
+        ("bmi", "numérique", "indicateur de corpulence"),
+        ("children", "numérique", "nombre d'enfants"),
+        ("smoker", "catégorie", "facteur de risque"),
+        ("region", "catégorie", "zone géographique"),
+        ("charges", "numérique", "coût médical annuel"),
+    ])
+    d.result_mock("00 · question", "Question métier du jour.", [
+        ("smoker=yes", "32 100", "segment très coûteux"),
+        ("smoker=no", "8 450", "base de comparaison"),
+        ("all", "13 700", "moyenne globale"),
+    ], "Objectif final: produire ce type de lecture, pas seulement du code.")
 
     d.divider(1, "Databricks.", "Se repérer avant de coder.", "Section 01 · 35 min")
     d.flow("01 · workspace", "Le parcours d'une analyse.", ["Data", "Notebook", "Cluster", "Result"], "Quatre objets visibles, pas d'architecture complexe.")
@@ -276,13 +355,34 @@ def build_deck() -> None:
         ("Share", "Collaboration", "Même support pour tous"),
     ])
     d.big_statement("01 · démo", "Un notebook s'exécute\ncellule par cellule.", "Ne pas tout lancer au début: on observe le résultat après chaque étape.", "DÉMO LIVE · ouvrir · attacher cluster · exécuter")
+    d.activity("01 · démo guidée", "Démo: premier notebook.", "10 min", "Chaque participant voit le même résultat à l'écran.", [
+        "Ouvrir /Shared/training/01_Intro_Databricks.",
+        "Attacher le cluster single-node.",
+        "Exécuter la cellule print puis la cellule variable.",
+        "Demander: où apparaît le résultat ?",
+    ], "Tout le groupe a exécuté Hello Databricks")
     d.table("01 · chemins", "Deux chemins pour un même fichier.", ["Usage", "Chemin", "Pourquoi"], [
         ("pandas", "/dbfs/FileStore/tables/insurance.csv", "Lecture locale"),
         ("Spark", "/FileStore/tables/insurance.csv", "Lecture Spark"),
         ("Databricks UI", "FileStore/tables/insurance.csv", "Upload visible"),
     ])
+    d.activity("01 · exercice", "Exercice: modifier une cellule.", "8 min", "Désacraliser le notebook: modifier, exécuter, observer.", [
+        "Changer region = \"North\" en region = \"South\".",
+        "Changer premium = 1000 en premium = 1500.",
+        "Ré-exécuter seulement la cellule concernée.",
+        "Comparer avec son voisin.",
+    ], "Une valeur modifiée et un résultat compris")
+    d.cards("01 · erreurs", "Erreurs fréquentes Databricks.", [
+        ("Cluster", "Non attaché", "La cellule reste en attente ou échoue."),
+        ("Ordre", "Cellule oubliée", "La variable n'existe pas encore."),
+        ("Chemin", "/dbfs manquant", "pandas ne trouve pas le fichier."),
+        ("Run all", "Trop tôt", "On perd le contrôle pédagogique."),
+        ("Dossier", "Mauvais import", "Le notebook n'est pas au bon endroit."),
+        ("Résultat", "Non lu", "On exécute sans interpréter."),
+    ])
 
     d.divider(2, "Python basics.", "Lire du code analytique simple.", "Section 02 · 50 min")
+    d.sas_python("02 · repère", "DATA step → Python.", "data work.demo;\n  age = 45;\n  region = 'southwest';\nrun;", 'age = 45\nregion = "southwest"', "Même idée: nommer des valeurs. Python est plus direct, moins structuré autour d'une table.")
     d.code("02 · variable", "Variable.", 'age = 45\nregion = "southwest"\npremium = 1200.50', "Le signe égal stocke une valeur dans un nom.")
     d.table("02 · types", "4 types à reconnaître.", ["Type", "Exemple", "Usage"], [
         ("int", "45", "âge, compteur"),
@@ -291,23 +391,82 @@ def build_deck() -> None:
         ("bool", "True", "condition vraie/fausse"),
     ])
     d.code("02 · liste", "Liste.", 'regions = ["northeast", "northwest",\n           "southeast", "southwest"]\n\nregions[0]', "Une liste regroupe plusieurs valeurs possibles.")
+    d.activity("02 · exercice", "Exercice: types et valeurs.", "7 min", "Lire les valeurs avant de parler de syntaxe.", [
+        "Modifier age, bmi, smoker.",
+        "Exécuter print(type(age)), print(type(bmi)).",
+        "Dire à voix haute: entier, décimal, texte ou booléen.",
+    ], "Chaque participant sait identifier 3 types")
     d.code("02 · condition", "Condition.", 'if age > 50:\n    print("senior")\nelse:\n    print("non senior")', "L'indentation indique les lignes contrôlées par le if.")
+    d.sas_python("02 · condition", "IF SAS → IF Python.", "if age > 50 then segment='senior';\nelse segment='non senior';", 'if age > 50:\n    segment = "senior"\nelse:\n    segment = "non senior"', "La logique est identique. Le vrai changement est l'indentation.")
+    d.activity("02 · binôme", "Lecture en binôme.", "6 min", "Forcer une lecture ligne par ligne, sans exécuter d'abord.", [
+        "Une personne lit la condition.",
+        "L'autre prédit le résultat pour age = 54.",
+        "On change age = 35 et on prédit à nouveau.",
+    ], "Deux prédictions vérifiées par exécution")
     d.code("02 · fonction", "Fonction.", "def annual_cost(monthly_cost):\n    return monthly_cost * 12\n\nannual_cost(120)", "Une règle métier nommée, réutilisable.")
     d.cards("02 · exercice", "Atelier Python guidé.", [
         ("Étape 1", "Modifier", "Changer age, region, premium"),
         ("Étape 2", "Exécuter", "Observer chaque sortie"),
         ("Étape 3", "Expliquer", "Lire la ligne avec ses mots"),
     ])
+    d.activity("02 · correction", "Correction Python.", "8 min", "Ne pas corriger seulement le résultat: corriger la lecture.", [
+        "Demander à un participant de lire son code.",
+        "Pointer le nom de variable, le signe, la valeur.",
+        "Faire expliquer l'indentation par le groupe.",
+    ], "Le groupe sait expliquer une cellule courte")
     d.persona("02 · rassurer", "Si je sais lire un IF SAS, je peux lire un IF Python. Le symbole change, la logique reste.")
 
     d.divider(3, "pandas.", "Manipuler une table comme un analyste.", "Section 03 · 60 min")
     d.big_statement("03 · dataframe", "Un DataFrame est une table.", "Lignes, colonnes, types, aperçu, statistiques.", "SAS dataset · Excel sheet · pandas DataFrame")
+    d.table("03 · anatomy", "Anatomie d'une table.", ["Élément", "Dans insurance", "Réflexe"], [
+        ("Ligne", "un bénéficiaire", "observation SAS"),
+        ("Colonne", "age, bmi, charges", "variable SAS"),
+        ("Modalité", "smoker=yes", "valeur catégorielle"),
+        ("Mesure", "charges", "variable à analyser"),
+    ])
     d.code("03 · load", "Charger le CSV.", 'import pandas as pd\n\ndf = pd.read_csv(\n    "/dbfs/FileStore/tables/insurance.csv"\n)', "Une ligne crée la table df.")
+    d.activity("03 · démo", "Démo: chargement contrôlé.", "6 min", "Montrer que charger une table est une étape observable.", [
+        "Exécuter import pandas.",
+        "Exécuter read_csv.",
+        "Afficher type(df).",
+        "Afficher len(df).",
+    ], "Le groupe voit qu'un DataFrame existe")
     d.flow("03 · workflow", "Workflow pandas.", ["Load", "Inspect", "Filter", "Group", "Interpret"], "Chaque notebook répète ce cycle.")
     d.code("03 · inspect", "Explorer.", "df.head()\ndf.info()\ndf.describe()", "Trois réflexes avant de conclure.")
+    d.result_mock("03 · inspect", "Ce qu'on cherche dans l'aperçu.", [
+        ("age", "18-64", "ordre de grandeur plausible"),
+        ("smoker", "yes/no", "modalité attendue"),
+        ("charges", "1 200-55 000", "montants à analyser"),
+    ], "Avant de filtrer, on vérifie que la table ressemble à ce qu'on croit.")
+    d.activity("03 · exercice", "Exercice: explorer.", "8 min", "Faire produire les premiers contrôles par les participants.", [
+        "Afficher les 5 premières lignes.",
+        "Compter le nombre de lignes.",
+        "Lister les colonnes.",
+        "Identifier la colonne cible.",
+    ], "Nombre de lignes + liste de colonnes")
     d.code("03 · select", "Sélectionner.", 'df[["age", "charges"]]', "On garde seulement les colonnes utiles.")
+    d.sas_python("03 · select", "KEEP SAS → sélection pandas.", "data work.small;\n  set insurance(keep=age charges);\nrun;", 'df[["age", "charges"]]', "Même intention: réduire la table aux variables utiles.")
     d.code("03 · filter", "Filtrer.", 'df[df["smoker"] == "yes"]\n\ndf[df["bmi"] > 30]', "La condition garde certaines lignes.")
+    d.sas_python("03 · where", "WHERE SAS → filtre pandas.", "data work.smokers;\n  set insurance;\n  where smoker = 'yes';\nrun;", 'df[df["smoker"] == "yes"]', "Le filtre est une question vraie/fausse posée à chaque ligne.")
+    d.activity("03 · exercice", "Exercice: filtrer.", "10 min", "Modifier des seuils sans page blanche.", [
+        "Patients age > 50.",
+        "Smokers only.",
+        "BMI > 30.",
+        "Female smokers.",
+    ], "4 filtres exécutés et un résultat lu")
     d.code("03 · groupby", "Agréger.", 'df.groupby("region")["charges"].mean()\n\ndf.groupby("smoker")["charges"].mean()', "PROC MEANS mental model: class puis moyenne.")
+    d.sas_python("03 · means", "PROC MEANS → groupby.", "proc means data=insurance mean;\n  class smoker;\n  var charges;\nrun;", 'df.groupby("smoker")["charges"].mean()', "Class devient groupby. Var devient la colonne entre crochets.")
+    d.result_mock("03 · result", "Lire un résultat groupby.", [
+        ("smoker=yes", "32 100", "coûts très supérieurs"),
+        ("smoker=no", "8 450", "base non-fumeur"),
+        ("gap", "x3.8", "écart métier à commenter"),
+    ], "La sortie n'est pas la fin: il faut une phrase métier.")
+    d.activity("03 · exercice", "Exercice: agréger.", "10 min", "Faire varier la colonne de regroupement.", [
+        "Moyenne de charges par region.",
+        "Moyenne de charges par smoker.",
+        "Moyenne de charges par sex.",
+        "Noter le segment le plus élevé.",
+    ], "3 agrégations + une interprétation")
     d.table("03 · mapping", "SAS → pandas.", ["SAS", "pandas", "Geste"], [
         ("PROC PRINT", "head()", "prévisualiser"),
         ("PROC CONTENTS", "info()", "structure"),
@@ -320,13 +479,34 @@ def build_deck() -> None:
         ("Filtrer", "Segments", "age > 50, smoker, BMI"),
         ("Agréger", "Coûts moyens", "region, smoker, sex"),
     ])
+    d.cards("03 · pièges", "Pièges pandas du premier jour.", [
+        ("Guillemets", "Nom de colonne", 'df["age"], pas df[age]'),
+        ("Double crochets", "Plusieurs colonnes", 'df[["age", "charges"]]'),
+        ("Égalité", "Deux signes", 'smoker == "yes"'),
+        ("Parenthèses", "Filtres combinés", "Chaque condition est isolée"),
+        ("Tri", "ascending=False", "Du plus élevé au plus faible"),
+        ("Interpréter", "Pas juste afficher", "Lire le résultat métier"),
+    ])
     d.big_statement("03 · pause", "Pause 10 minutes.", "Au retour: mêmes gestes, mais avec Spark.", "1:25 → 1:35")
 
     d.divider(4, "Spark.", "Même table, exécution Databricks.", "Section 04 · 30 min")
     d.flow("04 · mental model", "Spark en une image.", ["Notebook", "Cluster", "Spark DataFrame", "display"], "On évite les détails distribués cette semaine.")
+    d.big_statement("04 · message", "Spark n'est pas une nouvelle question.", "C'est une autre manière d'exécuter des gestes table dans Databricks.", "select · filter · groupBy · display")
     d.code("04 · read", "Lire avec Spark.", 'spark_df = spark.read.csv(\n    "/FileStore/tables/insurance.csv",\n    header=True,\n    inferSchema=True\n)', "Même CSV, autre moteur.")
     d.code("04 · transform", "Sélectionner et filtrer.", 'spark_df.select("age", "charges")\n\nspark_df.filter(spark_df.age > 50)', "Même intention que pandas.")
+    d.sas_python("04 · translate", "pandas → Spark.", 'df[["age", "charges"]]\n\ndf[df["age"] > 50]', 'spark_df.select("age", "charges")\n\nspark_df.filter(spark_df.age > 50)', "Les verbes deviennent explicites: select, filter.")
+    d.activity("04 · exercice", "Exercice: traduire.", "8 min", "Répéter les gestes pandas en Spark.", [
+        "select age, charges.",
+        "filter age > 50.",
+        "display le résultat.",
+        "Comparer avec pandas.",
+    ], "2 opérations Spark visibles")
     d.code("04 · groupby", "GroupBy Spark.", 'from pyspark.sql.functions import avg\n\nspark_df.groupBy("region").agg(\n    avg("charges").alias("avg_charges")\n)', "La syntaxe change, la question métier reste.")
+    d.activity("04 · correction", "Correction Spark.", "7 min", "Insister sur l'intention plus que sur la syntaxe.", [
+        "Identifier le verbe Spark.",
+        "Identifier la colonne de segment.",
+        "Identifier la mesure agrégée.",
+    ], "La traduction pandas → Spark est comprise")
     d.table("04 · compare", "pandas ou Spark ?", ["Situation", "pandas", "Spark"], [
         ("Apprendre", "Excellent", "Bien"),
         ("Petit CSV", "Simple", "Possible"),
@@ -336,24 +516,55 @@ def build_deck() -> None:
 
     d.divider(5, "SQL.", "Réutiliser un langage familier.", "Section 05 · 35 min")
     d.code("05 · view", "Créer une vue SQL.", 'spark_df.createOrReplaceTempView("insurance")', "SQL interroge la vue insurance.")
+    d.flow("05 · sql flow", "Pourquoi créer une vue ?", ["Spark DataFrame", "Temp view", "SQL cell", "Result"], "La vue fait le pont entre Spark et SQL.")
     d.code("05 · count", "COUNT.", "SELECT COUNT(*) AS row_count\nFROM insurance", "Premier contrôle: le volume chargé.")
     d.code("05 · avg", "GROUP BY.", "SELECT region,\n       AVG(charges) AS avg_charges\nFROM insurance\nGROUP BY region\nORDER BY avg_charges DESC", "PROC SQL mental model.")
+    d.sas_python("05 · proc sql", "PROC SQL → Databricks SQL.", "proc sql;\nselect region, mean(charges)\nfrom insurance\ngroup by region;\nquit;", "SELECT region,\n       AVG(charges)\nFROM insurance\nGROUP BY region", "C'est probablement la transition la plus confortable pour un public SAS.")
     d.table("05 · exercices", "Templates SQL.", ["Question", "Mot-clé", "À modifier"], [
         ("Combien de lignes ?", "COUNT", "nom de table"),
         ("Moyenne des charges ?", "AVG", "colonne numérique"),
         ("Par région ?", "GROUP BY", "colonne segment"),
         ("Fumeurs uniquement ?", "WHERE", "condition"),
     ])
+    d.activity("05 · exercice", "Exercice SQL.", "8 min", "Compléter des requêtes, pas partir d'une page blanche.", [
+        "Changer GROUP BY region en GROUP BY smoker.",
+        "Ajouter WHERE age > 50.",
+        "Trier avec ORDER BY avg_charges DESC.",
+    ], "Une requête SQL modifiée et interprétée")
+    d.result_mock("05 · result", "Lire la table SQL.", [
+        ("southeast", "14 850", "région la plus élevée"),
+        ("northeast", "13 950", "écart modéré"),
+        ("northwest", "12 700", "segment plus bas"),
+    ], "On commente l'ordre de grandeur, pas seulement le classement.")
 
     d.divider(6, "Challenge.", "Identifier le segment le plus coûteux.", "Section 06 · 20 min")
     d.flow("06 · méthode", "Méthode attendue.", ["Choose segment", "Filter", "Group", "Sort", "Explain"], "Le livrable est une table et une phrase métier.")
+    d.activity("06 · challenge", "Mini challenge.", "12 min", "Répondre à une question métier avec le chemin de son choix.", [
+        "Choisir pandas, Spark ou SQL.",
+        "Créer un segment: smoker, region, sex ou age_segment.",
+        "Calculer la moyenne de charges.",
+        "Écrire une phrase d'interprétation.",
+    ], "Table triée + phrase métier")
     d.table("06 · grille", "Grille de restitution.", ["Élément", "Attendu", "Exemple"], [
         ("Segment", "variable utilisée", "smoker + age_segment"),
         ("Mesure", "moyenne", "AVG(charges)"),
         ("Tri", "descendant", "coût le plus élevé en haut"),
         ("Phrase", "interprétation", "Les fumeurs >50 ans ont les charges moyennes les plus élevées."),
     ], True)
+    d.activity("06 · restitution", "Restitution rapide.", "8 min", "Transformer l'exercice en apprentissage collectif.", [
+        "Deux binômes partagent leur segment.",
+        "Le groupe vérifie la mesure utilisée.",
+        "On reformule une phrase métier propre.",
+    ], "Une conclusion validée collectivement")
     d.big_statement("06 · synthèse", "Vous savez ouvrir,\nexécuter,\nmanipuler,\ninterpréter.", "La semaine 2 pourra aller vers Python avancé sans perdre les repères SAS.", "Notebook · Python · pandas · Spark · SQL")
+    d.table("06 · checklist", "Checklist de fin de session.", ["Compétence", "Preuve", "OK"], [
+        ("Ouvrir un notebook", "01_Intro_Databricks exécuté", "□"),
+        ("Modifier du Python", "variable changée", "□"),
+        ("Explorer une table", "head/info/describe", "□"),
+        ("Filtrer", "smoker ou BMI", "□"),
+        ("Agréger", "groupby ou SQL GROUP BY", "□"),
+        ("Interpréter", "phrase métier", "□"),
+    ])
     d.persona("06 · fin", "Je ne connais pas tout Python, mais je sais exécuter une analyse guidée dans Databricks.", "Learner", "Fin Week 1")
     d.save()
 

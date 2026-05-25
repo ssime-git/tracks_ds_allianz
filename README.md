@@ -20,6 +20,7 @@ Public cible:
 - `notebooks/06_guided_exercises.py`: exercices autonomes guidés.
 - `data/insurance.csv`: dataset synthétique compatible avec le schéma Kaggle Medical Cost.
 - `docs/databricks_setup.md`: instructions d’import dans le workspace.
+- `docs/week1_run_of_show.md`: timing détaillé pour tenir les 4h.
 - `tools/generate_assets.py`: régénère le dataset.
 - `tools/generate_liora_week1_deck.py`: régénère le deck Week 1 avec la charte visuelle Liora.
 
