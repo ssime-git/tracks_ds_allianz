@@ -18,6 +18,8 @@ Public cible:
 - `notebooks/04_spark_basics.py`: découverte des DataFrames Spark.
 - `notebooks/05_sql_basics.py`: SQL dans Databricks.
 - `notebooks/06_guided_exercises.py`: exercices autonomes guidés.
+- `notebooks/07_afternoon_consolidation.py`: consolidation guidée pandas, Spark et SQL.
+- `notebooks/08_afternoon_case_study.py`: mini-cas métier progressif avec segmentation.
 - `data/insurance.csv`: dataset synthétique compatible avec le schéma Kaggle Medical Cost.
 - `docs/databricks_setup.md`: instructions d’import dans le workspace.
 - `docs/week1_run_of_show.md`: timing détaillé pour tenir les 4h.

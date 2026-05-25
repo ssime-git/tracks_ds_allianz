@@ -16,6 +16,17 @@ Objectif: tenir une session live de 4h sans accélérer artificiellement les sli
 | Challenge + synthèse | 10 min | restitution courte |
 | **Total** | **240 min** | **4h** |
 
+## Après-midi self-paced encadrée
+
+Après la session live de 4h, utiliser deux notebooks progressifs:
+
+| Notebook | Durée indicative | Objectif |
+|---|---:|---|
+| `07_afternoon_consolidation.py` | 1h30-1h45 | consolider pandas, Spark et SQL sur les mêmes questions |
+| `08_afternoon_case_study.py` | 1h30-1h45 | traiter un mini-cas métier avec segmentation et conclusion |
+
+Le notebook 07 reste très guidé. Le notebook 08 augmente légèrement la complexité: création d'une variable `age_segment`, analyses croisées, vérification du nombre de lignes par segment, conclusion métier.
+
 ## Règle d'animation
 
 Ne pas présenter les slides comme un cours magistral continu. Les slides "Activité guidée" doivent être réellement jouées:

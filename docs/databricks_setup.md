@@ -32,6 +32,8 @@ Ordre recommandé:
 4. `04_spark_basics.py`
 5. `05_sql_basics.py`
 6. `06_guided_exercises.py`
+7. `07_afternoon_consolidation.py`
+8. `08_afternoon_case_study.py`
 
 ## Upload du CSV
 
@@ -60,4 +62,4 @@ Dans Spark, le chemin utilisé est:
 - Rappeler les équivalences SAS à chaque étape.
 - Ne pas expliquer Spark en profondeur.
 - Garder les exercices guidés: les apprenants modifient du code existant.
-
+- Utiliser les notebooks 07 et 08 pour l’après-midi self-paced encadrée.
