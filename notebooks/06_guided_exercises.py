@@ -10,7 +10,7 @@
 # MAGIC 2. Code de départ.
 # MAGIC 3. À vous.
 # MAGIC 4. Correction masquée.
-# MAGIC 5. Bonne pratique.
+# MAGIC 5. À retenir.
 
 # COMMAND ----------
 
@@ -57,17 +57,25 @@ df.describe()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC - Nombre de lignes attendu: 420.
-# MAGIC - Colonne cible: `charges`.
-# MAGIC - Exemples de segmentation: `smoker`, `region`, `sex`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une exploration doit produire une vérification concrète, pas seulement afficher une table.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>- Nombre de lignes attendu: 420.</p>
+<p>- Colonne cible: <code>charges</code>.</p>
+<p>- Exemples de segmentation: <code>smoker</code>, <code>region</code>, <code>sex</code>.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: une exploration doit produire une vérification concrète, pas seulement afficher une table.
 # COMMAND ----------
 
 # MAGIC %md
@@ -94,17 +102,23 @@ df[df["bmi"] > 30].head()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df[df["bmi"] > 30].head()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: lisez un filtre comme une phrase métier.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df[df[&quot;bmi&quot;] &gt; 30].head()</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: lisez un filtre comme une phrase métier.
 # COMMAND ----------
 
 # MAGIC %md
@@ -123,28 +137,33 @@ df.groupby("region")["charges"].mean()
 
 # COMMAND ----------
 
-df.groupby("smoker")["charges"].mean()
+df.groupby(...)["charges"].mean()
 
 # COMMAND ----------
 
-df.groupby("sex")["charges"].mean()
+df.groupby(...)["charges"].mean()
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df.groupby(&quot;smoker&quot;)[&quot;charges&quot;].mean()
+df.groupby(&quot;sex&quot;)[&quot;charges&quot;].mean()</code></pre>
+<p>Interprétez toujours le segment le plus élevé.</p>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df.groupby("smoker")["charges"].mean()
-# MAGIC df.groupby("sex")["charges"].mean()
-# MAGIC ```
-# MAGIC
-# MAGIC Interprétez toujours le segment le plus élevé.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une moyenne par groupe doit être triée ou comparée explicitement.
-
+# MAGIC **À retenir**: une moyenne par groupe doit être triée ou comparée explicitement.
 # COMMAND ----------
 
 # MAGIC %md
@@ -171,21 +190,27 @@ display(spark_df.groupBy("smoker").agg(avg("charges").alias("avg_charges")))
 
 # COMMAND ----------
 
-display(spark_df.groupBy("region").agg(avg("charges").alias("avg_charges")))
+display(spark_df.groupBy(...).agg(avg("charges").alias("avg_charges")))
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC display(spark_df.groupBy("region").agg(avg("charges").alias("avg_charges")))
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: en Spark, nommez toujours les résultats agrégés avec `alias`.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">display(spark_df.groupBy(&quot;region&quot;).agg(avg(&quot;charges&quot;).alias(&quot;avg_charges&quot;)))</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: en Spark, nommez toujours les résultats agrégés avec `alias`.
 # COMMAND ----------
 
 # MAGIC %md
@@ -213,26 +238,32 @@ display(spark_df.groupBy("region").agg(avg("charges").alias("avg_charges")))
 # MAGIC SELECT region,
 # MAGIC        AVG(charges) AS avg_charges
 # MAGIC FROM insurance
-# MAGIC GROUP BY region
+# MAGIC GROUP BY <à remplacer>
 # MAGIC ORDER BY avg_charges DESC
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT region,
-# MAGIC        AVG(charges) AS avg_charges
-# MAGIC FROM insurance
-# MAGIC GROUP BY region
-# MAGIC ORDER BY avg_charges DESC
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: `ORDER BY ... DESC` facilite la lecture du segment le plus élevé.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT region,
+AVG(charges) AS avg_charges
+FROM insurance
+GROUP BY region
+ORDER BY avg_charges DESC</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: `ORDER BY ... DESC` facilite la lecture du segment le plus élevé.
 # COMMAND ----------
 
 # MAGIC %md
@@ -265,14 +296,21 @@ analysis
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Exemple de phrase:
-# MAGIC
-# MAGIC > Dans ce dataset, les fumeurs de plus de 50 ans présentent les charges moyennes les plus élevées. Ce résultat doit être interprété comme un signal descriptif, pas comme une conclusion causale.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: distinguez toujours observation descriptive et conclusion causale.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Exemple de phrase:</p>
+<p>> Dans ce dataset, les fumeurs de plus de 50 ans présentent les charges moyennes les plus élevées. Ce résultat doit être interprété comme un signal descriptif, pas comme une conclusion causale.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: distinguez toujours observation descriptive et conclusion causale.

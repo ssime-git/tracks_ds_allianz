@@ -10,7 +10,7 @@
 # MAGIC 2. Commande.
 # MAGIC 3. Pratique guidée.
 # MAGIC 4. Correction masquée.
-# MAGIC 5. Bonne pratique.
+# MAGIC 5. À retenir.
 
 # COMMAND ----------
 
@@ -34,20 +34,22 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Bonne pratique**: exécutez cellule par cellule au début. Évitez `Run all` tant que vous apprenez.
+# MAGIC **À retenir**: exécutez cellule par cellule au début. Évitez `Run all` tant que vous apprenez.
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ## Concept 2 - Première cellule Python
 # MAGIC
-# MAGIC Commande:
+# MAGIC Commande d'affichage:
+# MAGIC
+# MAGIC pour afficher en python, on utilise la commande `print()` en lui passant en argument ce que l'on veut afficher. Par exemple pour afficher le texte "Hello Databricks", on écrit:
 # MAGIC
 # MAGIC ```python
 # MAGIC print("Hello Databricks")
 # MAGIC ```
 # MAGIC
-# MAGIC Lire: afficher le texte entre guillemets.
+# MAGIC Exécutez cette cellule pour afficher le texte entre guillemets.
 
 # COMMAND ----------
 
@@ -66,25 +68,33 @@ print("Hello Allianz")
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Exemple:
-# MAGIC
-# MAGIC ```python
-# MAGIC print("Hello Allianz")
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: après exécution, regardez toujours où apparaît le résultat.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Exemple:</p>
+<pre><code class="language-python">print(&quot;Hello Allianz&quot;)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: après exécution, regardez toujours où apparaît le résultat.
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ## Concept 3 - Variables
 # MAGIC
-# MAGIC Une variable donne un nom à une valeur.
+# MAGIC Une variable donne un nom à une valeur. Le code ci-dessous permet de créer deux variables: `age` et `region` en leur assignant des valeurs avec l'opérateur `=`.
+
+# MAGIC
+# MAGIC Exécutez cette cellule pour créer les variables et les afficher. (Sans exécution, rien ne se passe et vos modifications ne seront pas pris en compte.)
 
 # COMMAND ----------
 
@@ -99,31 +109,57 @@ print(region)
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Changez `age` et `region`, puis ré-exécutez la cellule.
+# MAGIC Complétez la cellule ci-dessous pour:
+# MAGIC
+# MAGIC 1. mettre `age` à `52`,
+# MAGIC 2. mettre `region` à `"South"`,
+# MAGIC 3. afficher les deux valeurs avec `print()`.
 
 # COMMAND ----------
 
-age = 52
+age = ...
+region = ...
+
+# Afficher les deux variables
+
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code>age = 52
 region = "South"
 
 print(age)
-print(region)
-
+print(region)</code></pre>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Toute valeur est acceptable si le résultat affiché correspond à votre modification.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: si le résultat ne change pas, vérifiez que vous avez exécuté la bonne cellule.
-
+# MAGIC **À retenir**: si le résultat ne change pas, vérifiez que vous avez exécuté la bonne cellule.
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ## Concept 4 - Calcul simple
+# MAGIC
+# MAGIC En Python, on peut faire des calculs directement avec les variables.
+# MAGIC
+# MAGIC Par exemple:
+# MAGIC
+# MAGIC ```python
+# MAGIC premium = 1000
+# MAGIC premium_with_tax = premium * 1.2
+# MAGIC ```
+# MAGIC
+# MAGIC Ici, `premium_with_tax` reçoit le résultat du calcul.
 
 # COMMAND ----------
 
@@ -137,23 +173,39 @@ premium_with_tax
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Remplacez `premium = 1000` par `premium = 1500`.
+# MAGIC Complétez la cellule ci-dessous pour:
+# MAGIC
+# MAGIC 1. créer une variable `premium` avec la valeur `1500`,
+# MAGIC 2. créer une variable `premium_with_tax`,
+# MAGIC 3. afficher le résultat.
 
 # COMMAND ----------
 
-premium = 1500
-premium_with_tax = premium * 1.2
+premium = ...
+premium_with_tax = ...
 
 premium_with_tax
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Avec `premium = 1500`, le résultat attendu est `1800`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: gardez une cellule courte quand vous découvrez une nouvelle commande.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code>premium = 1500
+premium_with_tax = premium * 1.2
 
+premium_with_tax</code></pre>
+<p>Résultat attendu: <code>1800</code>.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC **À retenir**: gardez une cellule courte quand vous découvrez une nouvelle commande.

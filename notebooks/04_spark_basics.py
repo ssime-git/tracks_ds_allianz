@@ -10,7 +10,7 @@
 # MAGIC 2. Commande.
 # MAGIC 3. Pratique guidée.
 # MAGIC 4. Correction masquée.
-# MAGIC 5. Bonne pratique.
+# MAGIC 5. À retenir.
 
 # COMMAND ----------
 
@@ -32,7 +32,7 @@ spark
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Bonne pratique**: ne cherchez pas à comprendre l'architecture Spark aujourd'hui. Concentrez-vous sur les gestes analytiques.
+# MAGIC **À retenir**: ne cherchez pas à comprendre l'architecture Spark aujourd'hui. Concentrez-vous sur les gestes analytiques.
 
 # COMMAND ----------
 
@@ -76,19 +76,24 @@ spark_df.printSchema()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC spark_df.printSchema()
-# MAGIC ```
-# MAGIC
-# MAGIC On doit retrouver `age`, `sex`, `bmi`, `children`, `smoker`, `region`, `charges`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: après un chargement Spark, vérifiez toujours le schéma.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">spark_df.printSchema()</code></pre>
+<p>On doit retrouver <code>age</code>, <code>sex</code>, <code>bmi</code>, <code>children</code>, <code>smoker</code>, <code>region</code>, <code>charges</code>.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: après un chargement Spark, vérifiez toujours le schéma.
 # COMMAND ----------
 
 # MAGIC %md
@@ -119,21 +124,27 @@ display(spark_df.select("age", "charges"))
 
 # COMMAND ----------
 
-display(spark_df.select("smoker", "charges"))
+display(spark_df.select(..., ...))
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC display(spark_df.select("smoker", "charges"))
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: utilisez `display(...)` dans Databricks pour inspecter visuellement les DataFrames Spark.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">display(spark_df.select(&quot;smoker&quot;, &quot;charges&quot;))</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: utilisez `display(...)` dans Databricks pour inspecter visuellement les DataFrames Spark.
 # COMMAND ----------
 
 # MAGIC %md
@@ -158,21 +169,27 @@ display(spark_df.filter(spark_df.age > 50))
 
 # COMMAND ----------
 
-display(spark_df.filter(spark_df.bmi > 30))
+display(spark_df.filter(spark_df.bmi > ...))
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC display(spark_df.filter(spark_df.bmi > 30))
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: lisez le filtre comme une phrase: "je garde les lignes où BMI est supérieur à 30".
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">display(spark_df.filter(spark_df.bmi &gt; 30))</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: lisez le filtre comme une phrase: "je garde les lignes où BMI est supérieur à 30".
 # COMMAND ----------
 
 # MAGIC %md
@@ -207,24 +224,30 @@ display(
 
 display(
     spark_df
-    .groupBy("smoker")
+    .groupBy(...)
     .agg(avg("charges").alias("avg_charges"))
 )
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC display(
-# MAGIC     spark_df
-# MAGIC     .groupBy("smoker")
-# MAGIC     .agg(avg("charges").alias("avg_charges"))
-# MAGIC )
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: nommez les colonnes agrégées avec `.alias(...)` pour obtenir une table lisible.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">display(
+spark_df
+.groupBy(&quot;smoker&quot;)
+.agg(avg(&quot;charges&quot;).alias(&quot;avg_charges&quot;))
+)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: nommez les colonnes agrégées avec `.alias(...)` pour obtenir une table lisible.

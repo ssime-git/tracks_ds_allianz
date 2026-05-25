@@ -8,7 +8,7 @@
 # MAGIC 2. **Commande**: lecture lente de la syntaxe.
 # MAGIC 3. **À vous**: modification guidée, jamais page blanche.
 # MAGIC 4. **Correction masquée**: ouvrez seulement après avoir essayé.
-# MAGIC 5. **Bonne pratique**: règle à retenir.
+# MAGIC 5. **À retenir**: règle à retenir.
 
 # COMMAND ----------
 
@@ -36,27 +36,32 @@ math.sqrt(16)
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Remplacez `16` par `25`, puis exécutez la cellule.
+# MAGIC Utilisez la même commande pour calculer la racine carrée de `25`.
 
 # COMMAND ----------
 
-math.sqrt(25)
+math.sqrt(...)
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">math.sqrt(25)</code></pre>
+<p>Résultat attendu: <code>5.0</code>.</p>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC math.sqrt(25)
-# MAGIC ```
-# MAGIC
-# MAGIC Résultat attendu: `5.0`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: quand vous voyez `import`, demandez-vous toujours: quel outil rend-on disponible?
-
+# MAGIC **À retenir**: quand vous voyez `import`, demandez-vous toujours: quel outil rend-on disponible?
 # COMMAND ----------
 
 # MAGIC %md
@@ -87,35 +92,46 @@ print(premium)
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC 1. Remplacez `age` par `52`.
-# MAGIC 2. Remplacez `region` par `"northeast"`.
-# MAGIC 3. Ré-exécutez la cellule.
+# MAGIC Complétez la cellule pour:
+# MAGIC
+# MAGIC 1. créer `age` avec la valeur `52`,
+# MAGIC 2. créer `region` avec la valeur `"northeast"`,
+# MAGIC 3. garder `premium` à `1200.50`,
+# MAGIC 4. afficher les trois valeurs.
 
 # COMMAND ----------
 
-age = 52
-region = "northeast"
+age = ...
+region = ...
+premium = ...
+
+# Afficher les trois variables
+
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">age = 52
+region = &quot;northeast&quot;
 premium = 1200.50
 
 print(age)
 print(region)
-print(premium)
-
+print(premium)</code></pre>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC age = 52
-# MAGIC region = "northeast"
-# MAGIC premium = 1200.50
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: utilisez des noms simples et métier: `age`, `region`, `premium`, plutôt que `x`, `var1`, `tmp`.
-
+# MAGIC **À retenir**: utilisez des noms simples et métier: `age`, `region`, `premium`, plutôt que `x`, `var1`, `tmp`.
 # COMMAND ----------
 
 # MAGIC %md
@@ -147,14 +163,19 @@ print(type(is_smoker))
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Modifiez les valeurs, puis observez si les types changent.
+# MAGIC Complétez avec les valeurs suivantes, puis observez les types:
+# MAGIC
+# MAGIC - `age = 54`
+# MAGIC - `bmi = 31.2`
+# MAGIC - `region = "southeast"`
+# MAGIC - `is_smoker = False`
 
 # COMMAND ----------
 
-age = 54
-bmi = 31.2
-region = "southeast"
-is_smoker = False
+age = ...
+bmi = ...
+region = ...
+is_smoker = ...
 
 print(type(age))
 print(type(bmi))
@@ -163,20 +184,27 @@ print(type(is_smoker))
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Les valeurs peuvent changer sans changer le type:
-# MAGIC
-# MAGIC - `54` reste un `int`,
-# MAGIC - `31.2` reste un `float`,
-# MAGIC - `"southeast"` reste un `str`,
-# MAGIC - `False` reste un `bool`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: avant de filtrer ou calculer, vérifiez si vous manipulez un nombre ou du texte.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Les valeurs peuvent changer sans changer le type:</p>
+<p>- <code>54</code> reste un <code>int</code>,</p>
+<p>- <code>31.2</code> reste un <code>float</code>,</p>
+<p>- <code>"southeast"</code> reste un <code>str</code>,</p>
+<p>- <code>False</code> reste un <code>bool</code>.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: avant de filtrer ou calculer, vérifiez si vous manipulez un nombre ou du texte.
 # COMMAND ----------
 
 # MAGIC %md
@@ -215,11 +243,11 @@ segment
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Remplacez `age = 54` par `age = 35`. Avant d'exécuter, prédisez le résultat.
+# MAGIC Complétez avec `age = 35`. Avant d'exécuter, prédisez le résultat.
 
 # COMMAND ----------
 
-age = 35
+age = ...
 
 if age > 50:
     segment = "senior"
@@ -230,19 +258,24 @@ segment
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Avec `age = 35`, la condition `age > 50` est fausse. Le résultat est:
-# MAGIC
-# MAGIC ```python
-# MAGIC "non senior"
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: lisez toujours une condition avant de l'exécuter: variable, opérateur, seuil.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Avec <code>age = 35</code>, la condition <code>age > 50</code> est fausse. Le résultat est:</p>
+<pre><code class="language-python">&quot;non senior&quot;</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: lisez toujours une condition avant de l'exécuter: variable, opérateur, seuil.
 # COMMAND ----------
 
 # MAGIC %md
@@ -264,28 +297,36 @@ annual_cost(120)
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC 1. Remplacez `120` par `250`.
-# MAGIC 2. Créez un deuxième appel avec `annual_cost(80)`.
+# MAGIC Appelez la fonction deux fois:
+# MAGIC
+# MAGIC 1. avec `250`,
+# MAGIC 2. avec `80`.
 
 # COMMAND ----------
 
-annual_cost(250)
+annual_cost(...)
 
 # COMMAND ----------
 
-annual_cost(80)
+annual_cost(...)
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">annual_cost(250)  # 3000
+annual_cost(80)   # 960</code></pre>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC annual_cost(250)  # 3000
-# MAGIC annual_cost(80)   # 960
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une fonction doit avoir un nom qui décrit la règle métier.
-
+# MAGIC **À retenir**: une fonction doit avoir un nom qui décrit la règle métier.

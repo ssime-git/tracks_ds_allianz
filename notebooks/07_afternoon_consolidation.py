@@ -73,17 +73,25 @@ df.describe()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC 1. Colonne cible pour l'analyse: `charges`.
-# MAGIC 2. Statut fumeur: `smoker`.
-# MAGIC 3. Coût médical: `charges`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: nommer la colonne cible avant de filtrer évite de manipuler la mauvaise variable.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>1. Colonne cible pour l'analyse: <code>charges</code>.</p>
+<p>2. Statut fumeur: <code>smoker</code>.</p>
+<p>3. Coût médical: <code>charges</code>.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: nommer la colonne cible avant de filtrer évite de manipuler la mauvaise variable.
 # COMMAND ----------
 
 # MAGIC %md
@@ -110,7 +118,7 @@ len(smokers)
 
 # COMMAND ----------
 
-older_than_50 = df[df["age"] > 50]
+older_than_50 = df[df["age"] > ...]
 
 older_than_50.head()
 
@@ -120,19 +128,25 @@ len(older_than_50)
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC older_than_50 = df[df["age"] > 50]
-# MAGIC older_than_50.head()
-# MAGIC len(older_than_50)
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: stocker un filtre dans une variable (`older_than_50`) rend la suite plus lisible.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">older_than_50 = df[df[&quot;age&quot;] &gt; 50]
+older_than_50.head()
+len(older_than_50)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: stocker un filtre dans une variable (`older_than_50`) rend la suite plus lisible.
 # COMMAND ----------
 
 # MAGIC %md
@@ -164,7 +178,7 @@ len(older_smokers)
 
 # COMMAND ----------
 
-high_bmi_smokers = df[(df["bmi"] > 30) & (df["smoker"] == "yes")]
+high_bmi_smokers = df[(df["bmi"] > ...) & (df["smoker"] == ...)]
 
 high_bmi_smokers.head()
 
@@ -174,19 +188,25 @@ len(high_bmi_smokers)
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC high_bmi_smokers = df[(df["bmi"] > 30) & (df["smoker"] == "yes")]
-# MAGIC high_bmi_smokers.head()
-# MAGIC len(high_bmi_smokers)
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: pour combiner des conditions pandas, utilisez `&` et mettez chaque condition entre parenthèses.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">high_bmi_smokers = df[(df[&quot;bmi&quot;] &gt; 30) &amp; (df[&quot;smoker&quot;] == &quot;yes&quot;)]
+high_bmi_smokers.head()
+len(high_bmi_smokers)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: pour combiner des conditions pandas, utilisez `&` et mettez chaque condition entre parenthèses.
 # COMMAND ----------
 
 # MAGIC %md
@@ -207,21 +227,27 @@ df.groupby("smoker")["charges"].mean()
 
 # COMMAND ----------
 
-df.groupby("region")["charges"].mean()
+df.groupby(...)["charges"].mean()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df.groupby("region")["charges"].mean()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: après une moyenne par groupe, cherchez le groupe le plus élevé et le plus faible.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df.groupby(&quot;region&quot;)[&quot;charges&quot;].mean()</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: après une moyenne par groupe, cherchez le groupe le plus élevé et le plus faible.
 # COMMAND ----------
 
 # MAGIC %md
@@ -251,7 +277,7 @@ avg_by_region
 
 avg_by_smoker = (
     df
-    .groupby("smoker")["charges"]
+    .groupby(...)["charges"]
     .mean()
     .sort_values(ascending=False)
 )
@@ -260,22 +286,28 @@ avg_by_smoker
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC avg_by_smoker = (
-# MAGIC     df
-# MAGIC     .groupby("smoker")["charges"]
-# MAGIC     .mean()
-# MAGIC     .sort_values(ascending=False)
-# MAGIC )
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: trier un résultat agrégé évite de tirer une conclusion trop vite.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">avg_by_smoker = (
+df
+.groupby(&quot;smoker&quot;)[&quot;charges&quot;]
+.mean()
+.sort_values(ascending=False)
+)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: trier un résultat agrégé évite de tirer une conclusion trop vite.
 # COMMAND ----------
 
 # MAGIC %md
@@ -305,7 +337,7 @@ display(
 
 display(
     spark_df
-    .groupBy("region")
+    .groupBy(...)
     .agg(
         count("*").alias("row_count"),
         avg("charges").alias("avg_charges")
@@ -314,24 +346,30 @@ display(
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC display(
-# MAGIC     spark_df
-# MAGIC     .groupBy("region")
-# MAGIC     .agg(
-# MAGIC         count("*").alias("row_count"),
-# MAGIC         avg("charges").alias("avg_charges")
-# MAGIC     )
-# MAGIC )
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: ajouter `row_count` aide à vérifier qu'un segment n'est pas trop petit.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">display(
+spark_df
+.groupBy(&quot;region&quot;)
+.agg(
+count(&quot;*&quot;).alias(&quot;row_count&quot;),
+avg(&quot;charges&quot;).alias(&quot;avg_charges&quot;)
+)
+)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: ajouter `row_count` aide à vérifier qu'un segment n'est pas trop petit.
 # COMMAND ----------
 
 # MAGIC %md
@@ -363,27 +401,33 @@ display(
 # MAGIC        COUNT(*) AS row_count,
 # MAGIC        AVG(charges) AS avg_charges
 # MAGIC FROM insurance
-# MAGIC GROUP BY region
+# MAGIC GROUP BY <à remplacer>
 # MAGIC ORDER BY avg_charges DESC
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT region,
-# MAGIC        COUNT(*) AS row_count,
-# MAGIC        AVG(charges) AS avg_charges
-# MAGIC FROM insurance
-# MAGIC GROUP BY region
-# MAGIC ORDER BY avg_charges DESC
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: comparer pandas, Spark et SQL aide à séparer la logique métier de la syntaxe.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT region,
+COUNT(*) AS row_count,
+AVG(charges) AS avg_charges
+FROM insurance
+GROUP BY region
+ORDER BY avg_charges DESC</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: comparer pandas, Spark et SQL aide à séparer la logique métier de la syntaxe.
 # COMMAND ----------
 
 # MAGIC %md
@@ -395,12 +439,20 @@ display(
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Exemple de formulation</summary>
-# MAGIC
-# MAGIC > Dans ce dataset, les fumeurs ont des charges moyennes plus élevées que les non-fumeurs. C'est une observation descriptive sur ce fichier; elle ne suffit pas à prouver une causalité.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: terminer une analyse par une phrase métier courte et prudente.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>> Dans ce dataset, les fumeurs ont des charges moyennes plus élevées que les non-fumeurs. C'est une observation descriptive sur ce fichier; elle ne suffit pas à prouver une causalité.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: terminer une analyse par une phrase métier courte et prudente.

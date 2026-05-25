@@ -55,21 +55,27 @@ df_with_segments[["age", "age_segment", "smoker", "charges"]].head()
 
 # COMMAND ----------
 
-df_with_segments["age_segment"].value_counts()
+df_with_segments[...].value_counts()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df_with_segments["age_segment"].value_counts()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: quand vous créez un segment, vérifiez toujours sa répartition.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df_with_segments[&quot;age_segment&quot;].value_counts()</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: quand vous créez un segment, vérifiez toujours sa répartition.
 # COMMAND ----------
 
 # MAGIC %md
@@ -97,15 +103,23 @@ analysis_smoker
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Exemple de phrase</summary>
-# MAGIC
-# MAGIC > Les charges moyennes sont plus élevées pour les fumeurs que pour les non-fumeurs dans ce dataset.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: commencez par une analyse simple avant de croiser plusieurs dimensions.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>> Les charges moyennes sont plus élevées pour les fumeurs que pour les non-fumeurs dans ce dataset.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: commencez par une analyse simple avant de croiser plusieurs dimensions.
 # COMMAND ----------
 
 # MAGIC %md
@@ -133,7 +147,7 @@ analysis_age
 
 age_segment_summary = (
     df_with_segments
-    .groupby("age_segment", observed=True)
+    .groupby(..., observed=True)
     .agg(
         row_count=("charges", "size"),
         avg_charges=("charges", "mean")
@@ -145,25 +159,31 @@ age_segment_summary
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC age_segment_summary = (
-# MAGIC     df_with_segments
-# MAGIC     .groupby("age_segment", observed=True)
-# MAGIC     .agg(
-# MAGIC         row_count=("charges", "size"),
-# MAGIC         avg_charges=("charges", "mean")
-# MAGIC     )
-# MAGIC     .sort_values("avg_charges", ascending=False)
-# MAGIC )
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une moyenne sans nombre de lignes peut être trompeuse.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">age_segment_summary = (
+df_with_segments
+.groupby(&quot;age_segment&quot;, observed=True)
+.agg(
+row_count=(&quot;charges&quot;, &quot;size&quot;),
+avg_charges=(&quot;charges&quot;, &quot;mean&quot;)
+)
+.sort_values(&quot;avg_charges&quot;, ascending=False)
+)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: une moyenne sans nombre de lignes peut être trompeuse.
 # COMMAND ----------
 
 # MAGIC %md
@@ -196,7 +216,7 @@ segment_summary
 
 region_smoker_summary = (
     df_with_segments
-    .groupby(["smoker", "region"], observed=True)
+    .groupby(["smoker", ...], observed=True)
     .agg(
         row_count=("charges", "size"),
         avg_charges=("charges", "mean")
@@ -208,25 +228,31 @@ region_smoker_summary
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC region_smoker_summary = (
-# MAGIC     df_with_segments
-# MAGIC     .groupby(["smoker", "region"], observed=True)
-# MAGIC     .agg(
-# MAGIC         row_count=("charges", "size"),
-# MAGIC         avg_charges=("charges", "mean")
-# MAGIC     )
-# MAGIC     .sort_values("avg_charges", ascending=False)
-# MAGIC )
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: plus on croise de dimensions, plus il faut surveiller `row_count`.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">region_smoker_summary = (
+df_with_segments
+.groupby([&quot;smoker&quot;, &quot;region&quot;], observed=True)
+.agg(
+row_count=(&quot;charges&quot;, &quot;size&quot;),
+avg_charges=(&quot;charges&quot;, &quot;mean&quot;)
+)
+.sort_values(&quot;avg_charges&quot;, ascending=False)
+)</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: plus on croise de dimensions, plus il faut surveiller `row_count`.
 # COMMAND ----------
 
 # MAGIC %md
@@ -265,28 +291,34 @@ spark_df_with_segments.createOrReplaceTempView("insurance_segments")
 # MAGIC        COUNT(*) AS row_count,
 # MAGIC        AVG(charges) AS avg_charges
 # MAGIC FROM insurance_segments
-# MAGIC GROUP BY smoker, region
+# MAGIC GROUP BY smoker, <à remplacer>
 # MAGIC ORDER BY avg_charges DESC
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT smoker,
-# MAGIC        region,
-# MAGIC        COUNT(*) AS row_count,
-# MAGIC        AVG(charges) AS avg_charges
-# MAGIC FROM insurance_segments
-# MAGIC GROUP BY smoker, region
-# MAGIC ORDER BY avg_charges DESC
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: SQL est très utile pour relire une analyse de segmentation de manière transparente.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT smoker,
+region,
+COUNT(*) AS row_count,
+AVG(charges) AS avg_charges
+FROM insurance_segments
+GROUP BY smoker, region
+ORDER BY avg_charges DESC</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: SQL est très utile pour relire une analyse de segmentation de manière transparente.
 # COMMAND ----------
 
 # MAGIC %md
@@ -300,12 +332,20 @@ spark_df_with_segments.createOrReplaceTempView("insurance_segments")
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Exemple de conclusion</summary>
-# MAGIC
-# MAGIC Le segment avec les charges moyennes les plus élevées est généralement lié au statut fumeur, en particulier lorsqu'il est croisé avec une tranche d'âge élevée. Le résultat est basé sur une moyenne de `charges` par segment et doit être relu avec le nombre de lignes par groupe. Cette analyse est descriptive: elle montre une association dans le dataset, mais ne prouve pas une causalité.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une conclusion d'analyse doit toujours mentionner la mesure, le segment et la limite.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Le segment avec les charges moyennes les plus élevées est généralement lié au statut fumeur, en particulier lorsqu'il est croisé avec une tranche d'âge élevée. Le résultat est basé sur une moyenne de <code>charges</code> par segment et doit être relu avec le nombre de lignes par groupe. Cette analyse est descriptive: elle montre une association dans le dataset, mais ne prouve pas une causalité.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: une conclusion d'analyse doit toujours mentionner la mesure, le segment et la limite.

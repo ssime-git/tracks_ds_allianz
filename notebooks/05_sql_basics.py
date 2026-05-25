@@ -32,7 +32,7 @@ spark_df.createOrReplaceTempView("insurance")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Bonne pratique**: donnez à la vue SQL un nom simple et métier.
+# MAGIC **À retenir**: donnez à la vue SQL un nom simple et métier.
 
 # COMMAND ----------
 
@@ -66,23 +66,29 @@ spark_df.createOrReplaceTempView("insurance")
 # MAGIC %sql
 # MAGIC SELECT *
 # MAGIC FROM insurance
-# MAGIC LIMIT 5
+# MAGIC LIMIT <à remplacer>
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT *
-# MAGIC FROM insurance
-# MAGIC LIMIT 5
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: utilisez toujours `LIMIT` pour prévisualiser une table.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT *
+FROM insurance
+LIMIT 5</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: utilisez toujours `LIMIT` pour prévisualiser une table.
 # COMMAND ----------
 
 # MAGIC %md
@@ -108,15 +114,23 @@ spark_df.createOrReplaceTempView("insurance")
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Le dataset synthétique contient 420 lignes.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: compter les lignes est un premier contrôle de chargement.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Le dataset synthétique contient 420 lignes.</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: compter les lignes est un premier contrôle de chargement.
 # COMMAND ----------
 
 # MAGIC %md
@@ -146,28 +160,33 @@ spark_df.createOrReplaceTempView("insurance")
 # MAGIC SELECT smoker,
 # MAGIC        AVG(charges) AS avg_charges
 # MAGIC FROM insurance
-# MAGIC GROUP BY smoker
+# MAGIC GROUP BY <à remplacer>
 # MAGIC ORDER BY avg_charges DESC
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT smoker,
-# MAGIC        AVG(charges) AS avg_charges
-# MAGIC FROM insurance
-# MAGIC GROUP BY smoker
-# MAGIC ORDER BY avg_charges DESC
-# MAGIC ```
-# MAGIC
-# MAGIC Interprétez: quel statut fumeur a les charges moyennes les plus élevées?
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: ajoutez `ORDER BY` pour lire les segments du plus élevé au plus faible.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT smoker,
+AVG(charges) AS avg_charges
+FROM insurance
+GROUP BY smoker
+ORDER BY avg_charges DESC</code></pre>
+<p>Interprétez: quel statut fumeur a les charges moyennes les plus élevées?</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: ajoutez `ORDER BY` pour lire les segments du plus élevé au plus faible.
 # COMMAND ----------
 
 # MAGIC %md
@@ -193,22 +212,28 @@ spark_df.createOrReplaceTempView("insurance")
 # MAGIC %sql
 # MAGIC SELECT *
 # MAGIC FROM insurance
-# MAGIC WHERE age > 50
+# MAGIC WHERE <condition à remplacer>
 # MAGIC LIMIT 20
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```sql
-# MAGIC SELECT *
-# MAGIC FROM insurance
-# MAGIC WHERE age > 50
-# MAGIC LIMIT 20
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: dans SQL, les textes sont entre apostrophes: `'yes'`.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-sql">SELECT *
+FROM insurance
+WHERE age &gt; 50
+LIMIT 20</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: dans SQL, les textes sont entre apostrophes: `'yes'`.

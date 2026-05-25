@@ -8,7 +8,7 @@
 # MAGIC 2. Explication de la commande.
 # MAGIC 3. Pratique guidée.
 # MAGIC 4. Correction masquée.
-# MAGIC 5. Bonne pratique.
+# MAGIC 5. À retenir.
 
 # COMMAND ----------
 
@@ -32,7 +32,7 @@ import pandas as pd
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Bonne pratique**: gardez la convention `pd`. Elle est comprise par la majorité des analystes Python.
+# MAGIC **À retenir**: gardez la convention `pd`. Elle est comprise par la majorité des analystes Python.
 
 # COMMAND ----------
 
@@ -60,29 +60,33 @@ df = pd.read_csv("/dbfs/FileStore/tables/insurance.csv")
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Exécutez la cellule ci-dessous pour vérifier le type de l'objet `df`.
+# MAGIC Exécutez une commande pour vérifier le type de l'objet `df`.
 
 # COMMAND ----------
 
-type(df)
+type(...)
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><p>Le type attendu est:</p>
+<pre><code class="language-text">pandas.core.frame.DataFrame</code></pre>
+<p>C'est la table pandas.</p>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC Le type attendu est:
-# MAGIC
-# MAGIC ```text
-# MAGIC pandas.core.frame.DataFrame
-# MAGIC ```
-# MAGIC
-# MAGIC C'est la table pandas.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: après un chargement, vérifiez toujours que la table existe avant de continuer.
-
+# MAGIC **À retenir**: après un chargement, vérifiez toujours que la table existe avant de continuer.
 # COMMAND ----------
 
 # MAGIC %md
@@ -113,27 +117,32 @@ df.describe()
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Complétez avec une commande pour afficher la liste des colonnes.
+# MAGIC Complétez avec une commande pour afficher la liste des colonnes de `df`.
 
 # COMMAND ----------
 
-df.columns
+...
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df.columns</code></pre>
+<p>Colonnes attendues: <code>age</code>, <code>sex</code>, <code>bmi</code>, <code>children</code>, <code>smoker</code>, <code>region</code>, <code>charges</code>.</p>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df.columns
-# MAGIC ```
-# MAGIC
-# MAGIC Colonnes attendues: `age`, `sex`, `bmi`, `children`, `smoker`, `region`, `charges`.
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: ne filtrez jamais avant d'avoir regardé les colonnes et les types.
-
+# MAGIC **À retenir**: ne filtrez jamais avant d'avoir regardé les colonnes et les types.
 # COMMAND ----------
 
 # MAGIC %md
@@ -156,25 +165,31 @@ df[["age", "charges"]].head()
 # MAGIC %md
 # MAGIC ### À vous
 # MAGIC
-# MAGIC Sélectionnez les colonnes `smoker` et `charges`.
+# MAGIC Sélectionnez les colonnes `smoker` et `charges`, puis affichez les premières lignes.
 
 # COMMAND ----------
 
-df[["smoker", "charges"]].head()
+df[[..., ...]].head()
 
+# COMMAND ----------
+
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df[[&quot;smoker&quot;, &quot;charges&quot;]].head()</code></pre>
+</div>
+</details>
+""")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df[["smoker", "charges"]].head()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: sélectionnez uniquement les colonnes utiles quand vous préparez une analyse.
-
+# MAGIC **À retenir**: sélectionnez uniquement les colonnes utiles quand vous préparez une analyse.
 # COMMAND ----------
 
 # MAGIC %md
@@ -204,21 +219,27 @@ df[df["smoker"] == "yes"].head()
 
 # COMMAND ----------
 
-df[df["bmi"] > 30].head()
+df[df[...] > ...].head()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df[df["bmi"] > 30].head()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: utilisez `==` pour comparer, pas `=`. Un seul `=` sert à affecter une valeur.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df[df[&quot;bmi&quot;] &gt; 30].head()</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: utilisez `==` pour comparer, pas `=`. Un seul `=` sert à affecter une valeur.
 # COMMAND ----------
 
 # MAGIC %md
@@ -245,21 +266,27 @@ df.sort_values("charges", ascending=False).head()
 
 # COMMAND ----------
 
-df.sort_values("bmi", ascending=False).head()
+df.sort_values(..., ascending=...).head()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df.sort_values("bmi", ascending=False).head()
-# MAGIC ```
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: après un tri, lisez les premières lignes et vérifiez que l'ordre est celui attendu.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df.sort_values(&quot;bmi&quot;, ascending=False).head()</code></pre>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: après un tri, lisez les premières lignes et vérifiez que l'ordre est celui attendu.
 # COMMAND ----------
 
 # MAGIC %md
@@ -290,20 +317,25 @@ df.groupby("region")["charges"].mean()
 
 # COMMAND ----------
 
-df.groupby("smoker")["charges"].mean()
+df.groupby(...)["charges"].mean()
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC <details>
-# MAGIC <summary>Correction masquée</summary>
-# MAGIC
-# MAGIC ```python
-# MAGIC df.groupby("smoker")["charges"].mean()
-# MAGIC ```
-# MAGIC
-# MAGIC Interprétez le résultat: les charges moyennes sont-elles plus élevées chez les fumeurs?
-# MAGIC </details>
-# MAGIC
-# MAGIC **Bonne pratique**: une agrégation doit toujours finir par une phrase métier.
+displayHTML("""
+<style>
+.solution-box {font-family: Arial, sans-serif; border: 1px solid #d8d4ca; border-left: 6px solid #ff6745; background: #f8f7f3; padding: 12px 16px; border-radius: 6px; margin: 8px 0;}
+.solution-box summary {cursor: pointer; font-weight: 700; color: #1a1a33;}
+.solution-box pre {background: #1a1a33; color: #ffffff; padding: 12px; border-radius: 4px; overflow-x: auto;}
+.solution-box code {font-family: Menlo, Consolas, monospace;}
+</style>
+<details class="solution-box">
+<summary>Afficher la correction</summary>
+<div><pre><code class="language-python">df.groupby(&quot;smoker&quot;)[&quot;charges&quot;].mean()</code></pre>
+<p>Interprétez le résultat: les charges moyennes sont-elles plus élevées chez les fumeurs?</p>
+</div>
+</details>
+""")
+# COMMAND ----------
 
+# MAGIC %md
+# MAGIC **À retenir**: une agrégation doit toujours finir par une phrase métier.
