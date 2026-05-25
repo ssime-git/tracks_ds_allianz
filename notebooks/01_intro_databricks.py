@@ -2,23 +2,52 @@
 # MAGIC %md
 # MAGIC # 01 - Introduction à Azure Databricks
 # MAGIC
-# MAGIC Objectif: apprendre à ouvrir un notebook, exécuter des cellules et comprendre le rôle du cluster.
+# MAGIC Objectif: ouvrir un notebook, exécuter des cellules et comprendre où sont le code, la donnée et le résultat.
+# MAGIC
+# MAGIC Pattern:
+# MAGIC
+# MAGIC 1. Concept.
+# MAGIC 2. Commande.
+# MAGIC 3. Pratique guidée.
+# MAGIC 4. Correction masquée.
+# MAGIC 5. Bonne pratique.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Concept 1 - Notebook
+# MAGIC
+# MAGIC Un notebook mélange:
+# MAGIC
+# MAGIC - du texte explicatif,
+# MAGIC - du code,
+# MAGIC - des résultats.
 # MAGIC
 # MAGIC Équivalence SAS:
 # MAGIC
 # MAGIC | SAS | Databricks |
 # MAGIC |---|---|
 # MAGIC | Programme SAS | Notebook |
-# MAGIC | Exécuter un bloc de code | Exécuter une cellule |
-# MAGIC | Log SAS | Résultat de cellule |
-# MAGIC | Bibliothèque SAS | Espace de stockage / catalogue |
+# MAGIC | Bloc de code | Cellule |
+# MAGIC | Log / output | Résultat sous la cellule |
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 1. Première cellule Python
+# MAGIC **Bonne pratique**: exécutez cellule par cellule au début. Évitez `Run all` tant que vous apprenez.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Concept 2 - Première cellule Python
 # MAGIC
-# MAGIC Cliquez dans la cellule, puis utilisez **Run cell**.
+# MAGIC Commande:
+# MAGIC
+# MAGIC ```python
+# MAGIC print("Hello Databricks")
+# MAGIC ```
+# MAGIC
+# MAGIC Lire: afficher le texte entre guillemets.
 
 # COMMAND ----------
 
@@ -27,9 +56,35 @@ print("Hello Databricks")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 2. Variables
+# MAGIC ### À vous
 # MAGIC
-# MAGIC Une variable est un nom donné à une valeur. En SAS, on manipule souvent des colonnes ou des macro-variables. En Python, on commence par des variables simples.
+# MAGIC Remplacez le texte par votre prénom ou par le nom de votre équipe.
+
+# COMMAND ----------
+
+print("Hello Allianz")
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC <details>
+# MAGIC <summary>Correction masquée</summary>
+# MAGIC
+# MAGIC Exemple:
+# MAGIC
+# MAGIC ```python
+# MAGIC print("Hello Allianz")
+# MAGIC ```
+# MAGIC </details>
+# MAGIC
+# MAGIC **Bonne pratique**: après exécution, regardez toujours où apparaît le résultat.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Concept 3 - Variables
+# MAGIC
+# MAGIC Une variable donne un nom à une valeur.
 
 # COMMAND ----------
 
@@ -42,9 +97,33 @@ print(region)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 3. Calcul simple
+# MAGIC ### À vous
 # MAGIC
-# MAGIC Le signe `=` stocke une valeur. Le signe `*` multiplie.
+# MAGIC Changez `age` et `region`, puis ré-exécutez la cellule.
+
+# COMMAND ----------
+
+age = 52
+region = "South"
+
+print(age)
+print(region)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC <details>
+# MAGIC <summary>Correction masquée</summary>
+# MAGIC
+# MAGIC Toute valeur est acceptable si le résultat affiché correspond à votre modification.
+# MAGIC </details>
+# MAGIC
+# MAGIC **Bonne pratique**: si le résultat ne change pas, vérifiez que vous avez exécuté la bonne cellule.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Concept 4 - Calcul simple
 
 # COMMAND ----------
 
@@ -56,36 +135,25 @@ premium_with_tax
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 4. Listes
+# MAGIC ### À vous
 # MAGIC
-# MAGIC Une liste contient plusieurs valeurs. Elle est pratique pour représenter un ensemble de modalités.
+# MAGIC Remplacez `premium = 1000` par `premium = 1500`.
 
 # COMMAND ----------
 
-regions = ["North", "South", "East", "West"]
+premium = 1500
+premium_with_tax = premium * 1.2
 
-regions
+premium_with_tax
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 5. Fonction simple
+# MAGIC <details>
+# MAGIC <summary>Correction masquée</summary>
 # MAGIC
-# MAGIC Une fonction permet de réutiliser une règle de calcul.
-
-# COMMAND ----------
-
-def annual_cost(monthly_cost):
-    return monthly_cost * 12
-
-annual_cost(120)
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ## Mini-exercice guidé
+# MAGIC Avec `premium = 1500`, le résultat attendu est `1800`.
+# MAGIC </details>
 # MAGIC
-# MAGIC 1. Remplacez `120` par `250`.
-# MAGIC 2. Ré-exécutez la cellule.
-# MAGIC 3. Vérifiez que le résultat correspond à un coût annuel.
+# MAGIC **Bonne pratique**: gardez une cellule courte quand vous découvrez une nouvelle commande.
 

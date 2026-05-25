@@ -25,6 +25,15 @@ Ne pas présenter les slides comme un cours magistral continu. Les slides "Activ
 - corriger à l'écran,
 - demander une phrase d'interprétation.
 
+Les slides sombres servent de rupture de rythme:
+
+- changement de section,
+- QCM,
+- consigne "allez dans le notebook",
+- message méthodologique important.
+
+Quand une slide indique **Allez dans le notebook**, arrêter le deck et faire exécuter le notebook correspondant.
+
 ## Points de contrôle
 
 À la fin de la session, chaque apprenant doit avoir:
@@ -40,4 +49,3 @@ Ne pas présenter les slides comme un cours magistral continu. Les slides "Activ
 - traduit une opération en Spark,
 - exécuté une requête SQL,
 - formulé une conclusion métier courte.
-

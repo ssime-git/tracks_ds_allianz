@@ -11,7 +11,7 @@ Public cible:
 
 ## Livrables
 
-- `slides/week1_python_fundamentals_databricks.pptx`: deck visuel Liora pour une session live de 4h.
+- `slides/week1_python_fundamentals_databricks.pptx`: deck visuel Liora pour une session live de 4h, avec QCM, slides sombres, schémas, bonnes pratiques et appels notebooks.
 - `notebooks/01_intro_databricks.py`: découverte de Databricks et des notebooks.
 - `notebooks/02_python_basics.py`: bases Python guidées.
 - `notebooks/03_pandas_basics.py`: manipulation tabulaire avec pandas.
@@ -48,5 +48,15 @@ Le fichier peut être remplacé par le CSV Kaggle officiel avant l’import Data
 3. Importer les notebooks dans `/Shared/training`.
 4. Charger `data/insurance.csv` dans `/FileStore/tables/insurance.csv`.
 5. Exécuter les notebooks dans l’ordre.
+
+## Pattern pédagogique des notebooks
+
+Chaque notebook suit le même rythme:
+
+1. Concept.
+2. Explication de la commande.
+3. Pratique guidée.
+4. Correction masquée.
+5. Bonne pratique à retenir.
 
 Voir `docs/databricks_setup.md` pour le détail.

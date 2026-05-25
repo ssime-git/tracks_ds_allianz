@@ -7,6 +7,9 @@
 - [x] Created Databricks-ready notebooks for live session and self-paced work.
 - [x] Created a visual 4h PowerPoint deck for Week 1 using the Liora visual grammar.
 - [x] Added a 4h run-of-show with explicit activity timing.
+- [x] Added Python ecosystem coverage: modules, packages, imports, Databricks runtime.
+- [x] Added live QCM slides and explicit notebook call-to-action slides.
+- [x] Reworked notebooks with concept, command, practice, hidden correction, best-practice pattern.
 - [x] Added a synthetic training CSV with the same schema as the Kaggle Medical Cost dataset.
 - [x] Added setup and import instructions for Databricks.
 - [x] Initialized the local Git repository.

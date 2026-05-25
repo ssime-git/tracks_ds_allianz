@@ -49,6 +49,12 @@ class Deck:
         rect.line.fill.background()
         return s
 
+    def dark_title(self, s, crumb, title, subtitle=None):
+        self.text(s, 0.55, 0.45, 3.0, 0.16, crumb.upper(), 6, CORAL, True)
+        self.text(s, 0.65, 1.35, 10.4, 1.25, title, 40, CREAM, True)
+        if subtitle:
+            self.text(s, 0.68, 3.0, 9.0, 0.5, subtitle, 15, CREAM)
+
     def text(self, s, x, y, w, h, text, size=24, color=NAVY, bold=False, align=PP_ALIGN.LEFT, font="Arial"):
         box = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
         tf = box.text_frame
@@ -141,6 +147,16 @@ class Deck:
         self.text(s, 0.72, 5.05, 8.8, 0.55, subtitle, 15, INK_SOFT)
         self.foot(s, crumb)
 
+    def dark_statement(self, crumb, title, subtitle, accent=None):
+        s = self.slide(NAVY)
+        self.maze(s, "cover")
+        self.dark_title(s, crumb, title, subtitle)
+        if accent:
+            pill = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.72), Inches(5.35), Inches(9.6), Inches(0.48))
+            pill.fill.solid(); pill.fill.fore_color.rgb = CORAL; pill.line.fill.background()
+            self.text(s, 0.95, 5.52, 8.9, 0.13, accent.upper(), 7, WHITE, True)
+        self.foot(s, crumb)
+
     def cards(self, crumb, title, cards, cols=3):
         s = self.slide(CREAM)
         self.title(s, crumb, title)
@@ -223,6 +239,49 @@ class Deck:
                 line = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x + box_w + 0.1), Inches(y + 0.41), Inches(x + 2.45), Inches(y + 0.41))
                 line.line.color.rgb = NAVY
                 line.line.width = Pt(1)
+        self.foot(s, crumb)
+
+    def ecosystem(self, crumb, title):
+        s = self.slide(CREAM)
+        self.title(s, crumb, title, "Python n'est pas seulement un langage: c'est un écosystème d'outils.")
+        layers = [
+            ("Langage Python", "variables · conditions · fonctions", NAVY, CREAM),
+            ("Modules", "fichiers de code réutilisable", CORAL, WHITE),
+            ("Packages", "pandas · numpy · matplotlib", PURPLE, WHITE),
+            ("Environnement", "Databricks Runtime · librairies installées", GREEN, NAVY),
+            ("Notebook", "cellules qui orchestrent l'analyse", CREAM_SOFT, NAVY),
+        ]
+        y = 2.05
+        for name, desc, fill, col in layers:
+            b = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1.15), Inches(y), Inches(10.6), Inches(0.62))
+            b.fill.solid(); b.fill.fore_color.rgb = fill; b.line.fill.background()
+            self.text(s, 1.45, y + 0.19, 3.0, 0.15, name, 11, col, True)
+            self.text(s, 4.55, y + 0.19, 6.2, 0.15, desc, 10, col)
+            y += 0.76
+        self.foot(s, crumb)
+
+    def qcm(self, crumb, question, choices, answer):
+        s = self.slide(NAVY)
+        self.maze(s, "cover")
+        self.text(s, 0.65, 0.55, 2.0, 0.16, crumb.upper(), 6, CORAL, True)
+        self.text(s, 0.75, 1.25, 10.6, 0.8, question, 30, CREAM, True)
+        y = 2.65
+        for key, text in choices:
+            box = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1.0), Inches(y), Inches(10.7), Inches(0.58))
+            box.fill.solid(); box.fill.fore_color.rgb = CREAM_SOFT; box.line.fill.background()
+            self.text(s, 1.25, y + 0.2, 0.35, 0.12, key, 9, CORAL, True)
+            self.text(s, 1.75, y + 0.18, 9.4, 0.16, text, 12, NAVY, True)
+            y += 0.78
+        self.text(s, 1.0, 6.2, 10.7, 0.18, f"Réponse attendue: {answer}", 8, CORAL, True)
+        self.foot(s, crumb)
+
+    def notebook_call(self, crumb, notebook, task):
+        s = self.slide(NAVY)
+        self.maze(s, "cover")
+        self.dark_title(s, crumb, "Allez dans le notebook.", notebook)
+        b = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.85), Inches(4.15), Inches(10.8), Inches(0.8))
+        b.fill.solid(); b.fill.fore_color.rgb = CORAL; b.line.fill.background()
+        self.text(s, 1.15, 4.43, 10.0, 0.2, task, 14, WHITE, True)
         self.foot(s, crumb)
 
     def code(self, crumb, title, code, callout):
@@ -317,6 +376,7 @@ def build_deck() -> None:
     d.timeline()
     d.persona("00 · public", "Je connais SAS. Je veux retrouver mes repères sans devenir développeur Python.")
     d.big_statement("00 · objectif", "Même logique analytique.\nNouvel environnement.", "On garde les réflexes métier: lire, filtrer, agréger, interpréter.", "SAS program → notebook · SAS dataset → DataFrame · PROC SQL → SQL")
+    d.dark_statement("00 · méthode", "La méthode du jour.", "On apprend toujours dans le même ordre: comprendre le concept, lire la commande, pratiquer, vérifier, retenir une bonne pratique.", "concept → commande → pratique → correction → bonne pratique")
     d.table("00 · mapping", "SAS → Databricks.", ["SAS", "Databricks", "À retenir"], [
         ("SAS Program", "Notebook", "Code + texte + résultats"),
         ("DATA Step", "pandas / Spark", "Transformation de table"),
@@ -343,8 +403,15 @@ def build_deck() -> None:
         ("smoker=no", "8 450", "base de comparaison"),
         ("all", "13 700", "moyenne globale"),
     ], "Objectif final: produire ce type de lecture, pas seulement du code.")
+    d.qcm("00 · qcm", "Dans Databricks, qu'est-ce qu'un notebook ?", [
+        ("A", "Un fichier de données."),
+        ("B", "Un document qui mélange texte, code et résultats."),
+        ("C", "Un cluster de calcul."),
+        ("D", "Une librairie Python."),
+    ], "B · texte + code + résultats")
 
     d.divider(1, "Databricks.", "Se repérer avant de coder.", "Section 01 · 35 min")
+    d.dark_statement("01 · repère", "Avant d'exécuter: localiser.", "Dans Databricks, les erreurs de débutant viennent souvent d'un mauvais endroit: mauvais notebook, mauvais cluster, mauvais chemin de fichier.")
     d.flow("01 · workspace", "Le parcours d'une analyse.", ["Data", "Notebook", "Cluster", "Result"], "Quatre objets visibles, pas d'architecture complexe.")
     d.cards("01 · repères", "Les zones à reconnaître.", [
         ("Workspace", "Dossiers", "/Shared/training et notebooks"),
@@ -355,6 +422,7 @@ def build_deck() -> None:
         ("Share", "Collaboration", "Même support pour tous"),
     ])
     d.big_statement("01 · démo", "Un notebook s'exécute\ncellule par cellule.", "Ne pas tout lancer au début: on observe le résultat après chaque étape.", "DÉMO LIVE · ouvrir · attacher cluster · exécuter")
+    d.notebook_call("01 · notebook", "01_intro_databricks.py", "Exécuter les cellules 1 à 5, sans Run all.")
     d.activity("01 · démo guidée", "Démo: premier notebook.", "10 min", "Chaque participant voit le même résultat à l'écran.", [
         "Ouvrir /Shared/training/01_Intro_Databricks.",
         "Attacher le cluster single-node.",
@@ -380,8 +448,21 @@ def build_deck() -> None:
         ("Dossier", "Mauvais import", "Le notebook n'est pas au bon endroit."),
         ("Résultat", "Non lu", "On exécute sans interpréter."),
     ])
+    d.qcm("01 · qcm", "Une cellule pandas ne trouve pas le fichier. Quel premier contrôle ?", [
+        ("A", "Redémarrer le navigateur."),
+        ("B", "Vérifier le chemin /dbfs/FileStore/tables/insurance.csv."),
+        ("C", "Changer la colonne charges."),
+        ("D", "Créer une fonction Python."),
+    ], "B · vérifier le chemin utilisé par pandas")
 
     d.divider(2, "Python basics.", "Lire du code analytique simple.", "Section 02 · 50 min")
+    d.ecosystem("02 · écosystème", "L'écosystème Python.")
+    d.table("02 · imports", "Comprendre import.", ["Écriture", "Lecture", "Usage"], [
+        ("import pandas as pd", "charge pandas sous le nom pd", "standard en data analysis"),
+        ("from pyspark.sql.functions import avg", "importe une fonction précise", "agrégation Spark"),
+        ("import math", "module standard Python", "calculs simples"),
+    ])
+    d.dark_statement("02 · conseil", "Ne mémorisez pas tout.", "Pour un analyste, le premier objectif est de reconnaître les motifs: import, variable, filtre, groupby, display.", "reconnaître → modifier → vérifier")
     d.sas_python("02 · repère", "DATA step → Python.", "data work.demo;\n  age = 45;\n  region = 'southwest';\nrun;", 'age = 45\nregion = "southwest"', "Même idée: nommer des valeurs. Python est plus direct, moins structuré autour d'une table.")
     d.code("02 · variable", "Variable.", 'age = 45\nregion = "southwest"\npremium = 1200.50', "Le signe égal stocke une valeur dans un nom.")
     d.table("02 · types", "4 types à reconnaître.", ["Type", "Exemple", "Usage"], [
@@ -396,6 +477,7 @@ def build_deck() -> None:
         "Exécuter print(type(age)), print(type(bmi)).",
         "Dire à voix haute: entier, décimal, texte ou booléen.",
     ], "Chaque participant sait identifier 3 types")
+    d.notebook_call("02 · notebook", "02_python_basics.py", "Faire les blocs Concept 1 à 3: variables, types, condition.")
     d.code("02 · condition", "Condition.", 'if age > 50:\n    print("senior")\nelse:\n    print("non senior")', "L'indentation indique les lignes contrôlées par le if.")
     d.sas_python("02 · condition", "IF SAS → IF Python.", "if age > 50 then segment='senior';\nelse segment='non senior';", 'if age > 50:\n    segment = "senior"\nelse:\n    segment = "non senior"', "La logique est identique. Le vrai changement est l'indentation.")
     d.activity("02 · binôme", "Lecture en binôme.", "6 min", "Forcer une lecture ligne par ligne, sans exécuter d'abord.", [
@@ -414,9 +496,16 @@ def build_deck() -> None:
         "Pointer le nom de variable, le signe, la valeur.",
         "Faire expliquer l'indentation par le groupe.",
     ], "Le groupe sait expliquer une cellule courte")
+    d.qcm("02 · qcm", "Que fait `import pandas as pd` ?", [
+        ("A", "Il lit directement le CSV."),
+        ("B", "Il installe Python."),
+        ("C", "Il rend le package pandas disponible sous le nom pd."),
+        ("D", "Il crée un cluster Databricks."),
+    ], "C · pandas devient accessible via pd")
     d.persona("02 · rassurer", "Si je sais lire un IF SAS, je peux lire un IF Python. Le symbole change, la logique reste.")
 
     d.divider(3, "pandas.", "Manipuler une table comme un analyste.", "Section 03 · 60 min")
+    d.dark_statement("03 · principe", "Toujours contrôler avant d'analyser.", "Une analyse pandas commence par vérifier la table: aperçu, colonnes, types, ordres de grandeur.", "head · info · describe")
     d.big_statement("03 · dataframe", "Un DataFrame est une table.", "Lignes, colonnes, types, aperçu, statistiques.", "SAS dataset · Excel sheet · pandas DataFrame")
     d.table("03 · anatomy", "Anatomie d'une table.", ["Élément", "Dans insurance", "Réflexe"], [
         ("Ligne", "un bénéficiaire", "observation SAS"),
@@ -431,6 +520,7 @@ def build_deck() -> None:
         "Afficher type(df).",
         "Afficher len(df).",
     ], "Le groupe voit qu'un DataFrame existe")
+    d.notebook_call("03 · notebook", "03_pandas_basics.py", "Faire le bloc Charger + Contrôler avant tout filtre.")
     d.flow("03 · workflow", "Workflow pandas.", ["Load", "Inspect", "Filter", "Group", "Interpret"], "Chaque notebook répète ce cycle.")
     d.code("03 · inspect", "Explorer.", "df.head()\ndf.info()\ndf.describe()", "Trois réflexes avant de conclure.")
     d.result_mock("03 · inspect", "Ce qu'on cherche dans l'aperçu.", [
@@ -454,6 +544,12 @@ def build_deck() -> None:
         "BMI > 30.",
         "Female smokers.",
     ], "4 filtres exécutés et un résultat lu")
+    d.qcm("03 · qcm", "Pourquoi écrit-on `df[df[\"smoker\"] == \"yes\"]` avec `==` ?", [
+        ("A", "Parce que `==` teste une condition."),
+        ("B", "Parce que `=` filtre une table."),
+        ("C", "Parce que pandas impose toujours deux crochets."),
+        ("D", "Parce que smoker est numérique."),
+    ], "A · `==` compare, `=` affecte une valeur")
     d.code("03 · groupby", "Agréger.", 'df.groupby("region")["charges"].mean()\n\ndf.groupby("smoker")["charges"].mean()', "PROC MEANS mental model: class puis moyenne.")
     d.sas_python("03 · means", "PROC MEANS → groupby.", "proc means data=insurance mean;\n  class smoker;\n  var charges;\nrun;", 'df.groupby("smoker")["charges"].mean()', "Class devient groupby. Var devient la colonne entre crochets.")
     d.result_mock("03 · result", "Lire un résultat groupby.", [
@@ -487,11 +583,12 @@ def build_deck() -> None:
         ("Tri", "ascending=False", "Du plus élevé au plus faible"),
         ("Interpréter", "Pas juste afficher", "Lire le résultat métier"),
     ])
+    d.dark_statement("03 · bonne pratique", "Une sortie doit être lue.", "Après chaque résultat, demander: combien de lignes, quelles colonnes, quel segment ressort, et quelle phrase métier peut-on écrire ?")
     d.big_statement("03 · pause", "Pause 10 minutes.", "Au retour: mêmes gestes, mais avec Spark.", "1:25 → 1:35")
 
     d.divider(4, "Spark.", "Même table, exécution Databricks.", "Section 04 · 30 min")
     d.flow("04 · mental model", "Spark en une image.", ["Notebook", "Cluster", "Spark DataFrame", "display"], "On évite les détails distribués cette semaine.")
-    d.big_statement("04 · message", "Spark n'est pas une nouvelle question.", "C'est une autre manière d'exécuter des gestes table dans Databricks.", "select · filter · groupBy · display")
+    d.big_statement("04 · message", "On refait les mêmes gestes\navec l'outil Databricks standard.", "Aujourd'hui, on apprend à reconnaître la syntaxe Spark, pas à expliquer le calcul distribué.", "select · filter · groupBy · display")
     d.code("04 · read", "Lire avec Spark.", 'spark_df = spark.read.csv(\n    "/FileStore/tables/insurance.csv",\n    header=True,\n    inferSchema=True\n)', "Même CSV, autre moteur.")
     d.code("04 · transform", "Sélectionner et filtrer.", 'spark_df.select("age", "charges")\n\nspark_df.filter(spark_df.age > 50)', "Même intention que pandas.")
     d.sas_python("04 · translate", "pandas → Spark.", 'df[["age", "charges"]]\n\ndf[df["age"] > 50]', 'spark_df.select("age", "charges")\n\nspark_df.filter(spark_df.age > 50)', "Les verbes deviennent explicites: select, filter.")
@@ -501,6 +598,7 @@ def build_deck() -> None:
         "display le résultat.",
         "Comparer avec pandas.",
     ], "2 opérations Spark visibles")
+    d.notebook_call("04 · notebook", "04_spark_basics.py", "Refaire select, filter, groupBy dans le notebook Spark.")
     d.code("04 · groupby", "GroupBy Spark.", 'from pyspark.sql.functions import avg\n\nspark_df.groupBy("region").agg(\n    avg("charges").alias("avg_charges")\n)', "La syntaxe change, la question métier reste.")
     d.activity("04 · correction", "Correction Spark.", "7 min", "Insister sur l'intention plus que sur la syntaxe.", [
         "Identifier le verbe Spark.",
@@ -513,6 +611,12 @@ def build_deck() -> None:
         ("Databricks", "OK", "Naturel"),
         ("Très gros volume", "Limité", "Prévu pour ça"),
     ], True)
+    d.qcm("04 · qcm", "Dans le notebook Spark, pourquoi utilise-t-on `display(spark_df)` ?", [
+        ("A", "Pour installer Spark."),
+        ("B", "Pour afficher une table interactive dans Databricks."),
+        ("C", "Pour convertir en CSV."),
+        ("D", "Pour créer une fonction."),
+    ], "B · display affiche le DataFrame dans Databricks")
 
     d.divider(5, "SQL.", "Réutiliser un langage familier.", "Section 05 · 35 min")
     d.code("05 · view", "Créer une vue SQL.", 'spark_df.createOrReplaceTempView("insurance")', "SQL interroge la vue insurance.")
@@ -520,6 +624,7 @@ def build_deck() -> None:
     d.code("05 · count", "COUNT.", "SELECT COUNT(*) AS row_count\nFROM insurance", "Premier contrôle: le volume chargé.")
     d.code("05 · avg", "GROUP BY.", "SELECT region,\n       AVG(charges) AS avg_charges\nFROM insurance\nGROUP BY region\nORDER BY avg_charges DESC", "PROC SQL mental model.")
     d.sas_python("05 · proc sql", "PROC SQL → Databricks SQL.", "proc sql;\nselect region, mean(charges)\nfrom insurance\ngroup by region;\nquit;", "SELECT region,\n       AVG(charges)\nFROM insurance\nGROUP BY region", "C'est probablement la transition la plus confortable pour un public SAS.")
+    d.notebook_call("05 · notebook", "05_sql_basics.py", "Exécuter la création de vue, puis les cellules SQL.")
     d.table("05 · exercices", "Templates SQL.", ["Question", "Mot-clé", "À modifier"], [
         ("Combien de lignes ?", "COUNT", "nom de table"),
         ("Moyenne des charges ?", "AVG", "colonne numérique"),
@@ -531,6 +636,12 @@ def build_deck() -> None:
         "Ajouter WHERE age > 50.",
         "Trier avec ORDER BY avg_charges DESC.",
     ], "Une requête SQL modifiée et interprétée")
+    d.qcm("05 · qcm", "Que permet `createOrReplaceTempView(\"insurance\")` ?", [
+        ("A", "Créer une table SQL temporaire interrogeable dans le notebook."),
+        ("B", "Télécharger le fichier Kaggle."),
+        ("C", "Installer pandas."),
+        ("D", "Changer le type de la colonne charges."),
+    ], "A · rendre le DataFrame accessible en SQL")
     d.result_mock("05 · result", "Lire la table SQL.", [
         ("southeast", "14 850", "région la plus élevée"),
         ("northeast", "13 950", "écart modéré"),
@@ -545,6 +656,7 @@ def build_deck() -> None:
         "Calculer la moyenne de charges.",
         "Écrire une phrase d'interprétation.",
     ], "Table triée + phrase métier")
+    d.notebook_call("06 · notebook", "06_guided_exercises.py", "Faire le mini challenge final, puis écrire une phrase métier.")
     d.table("06 · grille", "Grille de restitution.", ["Élément", "Attendu", "Exemple"], [
         ("Segment", "variable utilisée", "smoker + age_segment"),
         ("Mesure", "moyenne", "AVG(charges)"),
