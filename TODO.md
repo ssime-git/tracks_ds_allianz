@@ -11,6 +11,7 @@
 - [x] Added live QCM slides and explicit notebook call-to-action slides.
 - [x] Reworked notebooks with concept, command, practice, hidden correction, best-practice pattern.
 - [x] Added two progressive afternoon notebooks: guided consolidation and business case study.
+- [x] Created a V3 design-first PowerPoint deck with artifact-tool.
 - [x] Added a synthetic training CSV with the same schema as the Kaggle Medical Cost dataset.
 - [x] Added setup and import instructions for Databricks.
 - [x] Initialized the local Git repository.

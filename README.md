@@ -12,6 +12,7 @@ Public cible:
 ## Livrables
 
 - `slides/week1_python_fundamentals_databricks.pptx`: deck visuel Liora pour une session live de 4h, avec QCM, slides sombres, schémas, bonnes pratiques et appels notebooks.
+- `slides/week1_python_fundamentals_databricks_v3.pptx`: version 3 design-first, plus visuelle, générée avec le workflow Presentations/artifact-tool.
 - `notebooks/01_intro_databricks.py`: découverte de Databricks et des notebooks.
 - `notebooks/02_python_basics.py`: bases Python guidées.
 - `notebooks/03_pandas_basics.py`: manipulation tabulaire avec pandas.
@@ -25,6 +26,7 @@ Public cible:
 - `docs/week1_run_of_show.md`: timing détaillé pour tenir les 4h.
 - `tools/generate_assets.py`: régénère le dataset.
 - `tools/generate_liora_week1_deck.py`: régénère le deck Week 1 avec la charte visuelle Liora.
+- `tools/generate_week1_v3_artifact_deck.mjs`: génère la V3 PowerPoint avec artifact-tool.
 
 ## Dataset
 
